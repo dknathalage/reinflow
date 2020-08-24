@@ -1,5 +1,5 @@
-# reinflow
-Javascript traffic management platform
+# ReinFlow - Data Node
+Node to control all sensor data. 
 
 ## Main node for all clients(sensor) connection.
 All clients(sensors) will be able to connect to the server on port 5000 locally. <br />
