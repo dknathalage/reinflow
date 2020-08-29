@@ -4,9 +4,7 @@ import './App.css';
 import AdminHome from './admin';
 
 function App() {
-	return ( <
-		AdminHome / >
-	);
+	return <AdminHome />;
 }
 
 export default App;
