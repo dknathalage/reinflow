@@ -3,6 +3,6 @@ orbs:
   node: circleci/node@3.0.0
 workflows:
   react-frontend-tests:
-    app-dir: ~/frontend
     jobs:
+    app-dir: ~/frontend
       - node/test
