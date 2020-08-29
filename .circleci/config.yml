@@ -1,8 +1,11 @@
 version: 2.1
 orbs:
   node: circleci/node@3.0.0 
-workflows:
-  react-js:
-    jobs:
-      - cd frontend
-      - node/test
+jobs: 
+  test:
+     working_directory: ~/frontend
+
+     steps:
+      - run: npm install
+      - run: npm test
+
