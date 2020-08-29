@@ -1,8 +1,8 @@
 version: 2.1
 orbs:
   node: circleci/node@3.0.0
+working_directory: ~/frontend
 workflows:
-  react-frontend-tests:
+  react-js:
     jobs:
-    app-dir: ~/frontend
       - node/test
