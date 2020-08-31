@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from './assets/REINFLOW.png';
+import logo from '../assets/REINFLOW.png';
 import './App.css';
 import AdminHome from './components/pages/home';
 import Error from './components/404';
