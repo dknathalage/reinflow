@@ -4,7 +4,6 @@
   "description": "Backend server of REINFLOW traffic control platform",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
     "start": "nodemon index.js"
   },
   "keywords": [
