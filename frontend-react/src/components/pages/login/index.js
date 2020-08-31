@@ -88,6 +88,8 @@ function UserLogin() {
 									<Button type="primary" htmlType="submit">
 										Submit
 									</Button>
+									<br />
+									Or <a href="/register">register now!</a>
 								</Form.Item>
 							</Form>
 						</div>
