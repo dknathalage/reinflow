@@ -16,10 +16,6 @@ workflows:
   version: 2
   build_and_test:
     jobs:
-<<<<<<< HEAD
       - node/test
-=======
       - build
       - test
-    
->>>>>>> master
