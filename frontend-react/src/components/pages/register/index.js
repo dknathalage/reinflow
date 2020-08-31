@@ -129,6 +129,11 @@ function UserRegisteration() {
 									<Button type="primary" htmlType="submit">
 										Submit
 									</Button>
+									<br />
+
+									<p>
+										Already have an account? <a href="/login">login!</a>
+									</p>
 								</Form.Item>
 							</Form>
 						</div>
