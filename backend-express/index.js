@@ -1,11 +1,20 @@
 // imports
 const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv').config()
 
 // port that backend uses to listen to incoming api calls
 const PORT = process.env.PORT || 5000;
 
 // starting point
 const app = express()
+
+
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => console.log("db connection successful")).catch(error => console.error(error));
+
 
 
 // endpoint for / route
