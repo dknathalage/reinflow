@@ -9,7 +9,7 @@ jobs:
 
       - run: cd frontend-react && npm install
 workflows:
-  version: 2.1
-    node-tests:
-      jobs:
-        - node/test
+version: 2
+  node-tests:
+    jobs:
+      - node/test
