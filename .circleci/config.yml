@@ -8,6 +8,8 @@ jobs:
       - checkout
 
       - run: cd frontend-react && npm install
-
-      - run: cd frontend-react && npm test
+workflows:
+  node-tests:
+    jobs:
+      - node/test
 
