@@ -6,6 +6,7 @@ import Error from './components/404';
 import Dashboard from './components/pages/dashboard';
 import UserLogin from './components/pages/login';
 import UserRegisteration from './components/pages/register';
+import UserDashboard from './components/pages/sider/user_dashboard';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { message, Spin, notification } from 'antd';
@@ -55,6 +56,7 @@ function App() {
 					<ProtectedRoute path="/dashboard" exact component={Dashboard} />
 					<Route path="/login" exact component={UserLogin} />
 					<Route path="/register" exact component={UserRegisteration} />
+					<ProtectedRoute path="/user-dashboard" exact component={UserDashboard} />
 					<Route component={Error} />
 				</Switch>
 			</div>
