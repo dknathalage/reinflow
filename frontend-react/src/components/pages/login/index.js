@@ -1,12 +1,22 @@
-import React from 'react';
-import { Layout, Form, Breadcrumb, Input, Checkbox, Button } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Layout, Form, Breadcrumb, Input, Checkbox, Button, Steps } from 'antd';
+import { UserOutlined, SolutionOutlined, LoadingOutlined, SmileOutlined, HddOutlined } from '@ant-design/icons';
 
 import ReinFlowFooter from '../../footer/footer';
 import Headers from '../../header';
 
+const { Step } = Steps;
 const { Header, Content } = Layout;
 
 function UserLogin() {
+	const [ statusUpdate, setstatusUpdate ] = useState([
+		{
+			register: 'process',
+			auth: 'wait',
+			done: 'wait'
+		}
+	]);
+
 	const layout = {
 		labelCol: { span: 8 },
 		wrapperCol: { span: 8 }
@@ -16,6 +26,9 @@ function UserLogin() {
 	};
 
 	const onFinish = (values) => {
+		/**
+		 * steps not active here 
+		 */
 		console.log('Success:', values);
 	};
 
@@ -33,6 +46,14 @@ function UserLogin() {
 						<Breadcrumb.Item>Users</Breadcrumb.Item>
 						<Breadcrumb.Item>Login</Breadcrumb.Item>
 					</Breadcrumb>
+					<div style={{ margin: '50px', background: 'white', padding: '30px', borderRadius: '10px' }}>
+						<Steps>
+							<Step status={statusUpdate.register} title="Login" icon={<UserOutlined />} />
+							<Step status={statusUpdate.auth} title="Authenticate" icon={<SolutionOutlined />} />
+							<Step status={statusUpdate.done} title="Done" icon={<SmileOutlined />} />
+						</Steps>
+					</div>
+
 					<div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
 						<h1 style={{ fontWeight: 'bolder' }}>User Login</h1>
 						<div style={{ paddingTop: '50px', paddingBottom: '50px' }}>
