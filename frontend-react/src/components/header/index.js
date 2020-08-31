@@ -1,7 +1,14 @@
 import React from 'react';
 
 import { Layout, Menu, Breadcrumb, Badge } from 'antd';
-import { DesktopOutlined, PieChartOutlined, FileOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
+import {
+	DesktopOutlined,
+	PieChartOutlined,
+	FileOutlined,
+	TeamOutlined,
+	UserOutlined,
+	LockOutlined
+} from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
@@ -20,7 +27,8 @@ function Headers() {
 		dispatch(
 			set_directory({
 				current_dir: 'Home',
-				dir_key: 1
+				dir_key: 1,
+				sider_key: null
 			})
 		);
 	};
@@ -29,7 +37,18 @@ function Headers() {
 		dispatch(
 			set_directory({
 				current_dir: 'Admin',
-				dir_key: 2
+				dir_key: 2,
+				sider_key: null
+			})
+		);
+	};
+
+	const handleUserDashboard = (e) => {
+		dispatch(
+			set_directory({
+				current_dir: 'User/Dashboard',
+				dir_key: 1,
+				sider_key: 4
 			})
 		);
 	};
@@ -51,7 +70,12 @@ function Headers() {
 			</Header>
 			<Sider collapsible style={{ minHeight: '100vh' }}>
 				<div className="logo" />
-				<Menu theme="dark" defaultSelectedKeys={[ '1' ]} mode="inline" style={{ marginTop: '70px' }}>
+				<Menu
+					theme="dark"
+					defaultSelectedKeys={[ `${dir.sider_key}` ]}
+					mode="inline"
+					style={{ marginTop: '70px' }}
+				>
 					<SubMenu
 						key="1"
 						icon={<Avatar size="small" icon={<UserOutlined />} />}
@@ -61,7 +85,12 @@ function Headers() {
 							</span>
 						}
 					>
-						<Menu.Item key="4">User Dashboard</Menu.Item>
+						<Menu.Item key="4" onClick={handleUserDashboard}>
+							<NavLink to="/user-dashboard">User Dashboard</NavLink>
+						</Menu.Item>
+						<Menu.Item key="4" onClick={handleUserDashboard} icon={<LockOutlined />}>
+							<NavLink to="/login">Sign out</NavLink>
+						</Menu.Item>
 					</SubMenu>
 					<Menu.Item key="2" icon={<DesktopOutlined />}>
 						Option 2
