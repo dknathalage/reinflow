@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   build:
     docker:
@@ -9,7 +9,7 @@ jobs:
 
       - run: cd frontend-react && npm install
 workflows:
-  node-tests:
-    jobs:
-      - node/test
-
+  version: 2.1
+    node-tests:
+      jobs:
+        - node/test
