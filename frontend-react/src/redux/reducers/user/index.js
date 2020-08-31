@@ -1,8 +1,8 @@
-const initialState = [{
-    auth_status: false,
-    username: null,
+const initialState = {
+    auth_status: true,
+    username: "Sheron",
     accesslevel: null
-}]
+}
 
 export default function user_state(state = initialState, {
     type,
@@ -10,11 +10,11 @@ export default function user_state(state = initialState, {
 }) {
     switch (type) {
         case 'LOGIN_USR':
-            return state = [{
+            return state = {
                 auth_status: payload.auth_status,
                 username: payload.username,
                 accesslevel: payload.accesslevel
-            }];
+            };
         default:
             return state;
     }
