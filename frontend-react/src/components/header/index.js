@@ -2,14 +2,17 @@ import React from 'react';
 
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { DesktopOutlined, PieChartOutlined, FileOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
-
 import { NavLink } from 'react-router-dom';
+
+import { useSelector } from 'react-redux';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 function Headers() {
-	return (
+	const user = useSelector((state) => state.user);
+
+	return user[0].auth_status === true ? (
 		<div>
 			<Header style={{ position: 'fixed', zIndex: 1, width: '100%', marginLeft: '150px' }}>
 				<div className="logo" />
@@ -42,6 +45,25 @@ function Headers() {
 						<Menu.Item key="5">Sensor 2</Menu.Item>
 					</SubMenu>
 					<Menu.Item key="9" icon={<FileOutlined />} />
+				</Menu>
+			</Sider>
+		</div>
+	) : (
+		<div>
+			<Header style={{ position: 'fixed', zIndex: 1, width: '100%', marginLeft: '150px' }}>
+				<div className="logo" />
+				<Menu theme="dark" mode="horizontal" defaultSelectedKeys={[ '1' ]}>
+					<Menu.Item key="1">
+						<NavLink to="/">Home</NavLink>
+					</Menu.Item>
+				</Menu>
+			</Header>
+			<Sider collapsible style={{ minHeight: '100vh' }}>
+				<div className="logo" />
+				<Menu theme="dark" defaultSelectedKeys={[ '1' ]} mode="inline" style={{ marginTop: '60px' }}>
+					<Menu.Item key="1" icon={<PieChartOutlined />}>
+						Overview
+					</Menu.Item>
 				</Menu>
 			</Sider>
 		</div>
