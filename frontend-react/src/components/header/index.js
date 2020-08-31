@@ -12,7 +12,7 @@ const { SubMenu } = Menu;
 function Headers() {
 	const user = useSelector((state) => state.user);
 
-	return user[0].auth_status === true ? (
+	return user.auth_status === true ? (
 		<div>
 			<Header style={{ position: 'fixed', zIndex: 1, width: '100%', marginLeft: '150px' }}>
 				<div className="logo" />
