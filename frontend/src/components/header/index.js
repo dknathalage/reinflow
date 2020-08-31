@@ -1,25 +1,31 @@
 import React from 'react';
+
 import { Layout, Menu, Breadcrumb } from 'antd';
 import { DesktopOutlined, PieChartOutlined, FileOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 
-import './admin.css';
-import ReinFlowFooter from '../components/footer/footer';
+import { NavLink } from 'react-router-dom';
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
-export default function AdminHome() {
+function Headers() {
 	return (
-		<Layout style={{ minHeight: '100vh' }}>
+		<div>
 			<Header style={{ position: 'fixed', zIndex: 1, width: '100%', marginLeft: '150px' }}>
 				<div className="logo" />
 				<Menu theme="dark" mode="horizontal" defaultSelectedKeys={[ '1' ]}>
-					<Menu.Item key="1">Home</Menu.Item>
-					<Menu.Item key="2">Admin</Menu.Item>
-					<Menu.Item key="3">Statistics</Menu.Item>
+					<Menu.Item key="1">
+						<NavLink to="/">Home</NavLink>
+					</Menu.Item>
+					<Menu.Item key="2">
+						<NavLink to="/dashboard">Admin</NavLink>
+					</Menu.Item>
+					<Menu.Item key="3">
+						<NavLink to="/stats">Statistics</NavLink>
+					</Menu.Item>
 				</Menu>
 			</Header>
-			<Sider collapsible>
+			<Sider collapsible style={{ minHeight: '100vh' }}>
 				<div className="logo" />
 				<Menu theme="dark" defaultSelectedKeys={[ '1' ]} mode="inline" style={{ marginTop: '60px' }}>
 					<Menu.Item key="1" icon={<PieChartOutlined />}>
@@ -38,19 +44,8 @@ export default function AdminHome() {
 					<Menu.Item key="9" icon={<FileOutlined />} />
 				</Menu>
 			</Sider>
-			<Layout className="site-layout">
-				<Header className="site-layout-background" style={{ padding: 0 }} />
-				<Content style={{ margin: '0 16px' }}>
-					<Breadcrumb style={{ margin: '16px 0' }}>
-						<Breadcrumb.Item>Home</Breadcrumb.Item>
-						<Breadcrumb.Item>Overview</Breadcrumb.Item>
-					</Breadcrumb>
-					<div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-						Our Overview page
-					</div>
-				</Content>
-				<ReinFlowFooter />
-			</Layout>
-		</Layout>
+		</div>
 	);
 }
+
+export default Headers;
