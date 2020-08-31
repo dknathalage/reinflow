@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/Kushan-Nilanga/reinflow#readme",
   "devDependencies": {
-    "jest": "^26.4.0"
+    "jest": "^26.4.2"
   }
 }
