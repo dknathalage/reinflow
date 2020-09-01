@@ -2,13 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Layout, Form, Breadcrumb, Input, Checkbox, Button, Steps } from 'antd';
 import { UserOutlined, SolutionOutlined, LoadingOutlined, SmileOutlined, HddOutlined } from '@ant-design/icons';
 
+import { login_user } from '../../../authentication/auth';
+
 import ReinFlowFooter from '../../footer/footer';
 import Headers from '../../header';
+import { openNotificationWithIcon } from '../../notification';
+import { useDispatch } from 'react-redux';
+import { login } from '../../../redux/actions/user';
+import { useHistory } from 'react-router-dom';
 
 const { Step } = Steps;
 const { Header, Content } = Layout;
 
 function UserLogin() {
+	const history = useHistory();
+	const dispatch = useDispatch();
 	const [ statusUpdate, setstatusUpdate ] = useState([
 		{
 			register: 'process',
@@ -25,11 +33,28 @@ function UserLogin() {
 		wrapperCol: { offset: 8, span: 16 }
 	};
 
-	const onFinish = (values) => {
-		/**
-		 * steps not active here 
-		 */
+	const onFinish = async (values) => {
 		console.log('Success:', values);
+		const data = await login_user(values.email, values.password);
+		if (!data.token) {
+			openNotificationWithIcon('warning', 'Invalid Details', 'Please check your email or password');
+		} else {
+			openNotificationWithIcon('success', 'Success!', 'Logging you in!');
+			setstatusUpdate({ register: 'finish', auth: 'process', done: 'wait' });
+			setTimeout(() => {
+				setstatusUpdate({ register: 'finish', auth: 'finish', done: 'finish' });
+				dispatch(
+					login({
+						auth_status: true,
+						username: data.username,
+						accessLevel: data.accessLevel
+					})
+				);
+				setTimeout(() => {
+					history.push('/');
+				}, 500);
+			}, 1000);
+		}
 	};
 
 	const onFinishFailed = (errorInfo) => {
@@ -65,9 +90,12 @@ function UserLogin() {
 								onFinishFailed={onFinishFailed}
 							>
 								<Form.Item
-									label="Username"
-									name="username"
-									rules={[ { required: true, message: 'Please input your username!' } ]}
+									label="Email"
+									name="email"
+									rules={[
+										{ required: true, message: 'Please input your email!' },
+										{ type: 'email', message: 'Please enter a valid Email Address' }
+									]}
 								>
 									<Input />
 								</Form.Item>
