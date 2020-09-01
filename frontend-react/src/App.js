@@ -62,11 +62,7 @@ function App() {
           <ProtectedRoute path="/dashboard" exact component={Dashboard} />
           <Route path="/login" exact component={UserLogin} />
           <Route path="/register" exact component={UserRegisteration} />
-          <ProtectedRoute
-            path="/user-dashboard"
-            exact
-            component={UserDashboard}
-          />
+          <Route path="/user-dashboard" exact component={UserDashboard} />
           <Route component={Error} />
         </Switch>
       </div>
