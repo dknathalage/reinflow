@@ -11,6 +11,9 @@ const PORT = process.env.PORT || 5000;
 // starting point
 const app = express()
 
+// serving static docs
+app.use(express.static(`${__dirname}/public/generated-docs`))
+
 // connection to mongodb
 mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
@@ -39,7 +42,7 @@ app.use('/api/sensors', sensorRoutes)
  * }
  * */
 app.get('/', (req, res)=>{
-	res.status(200).send('Backend API / route');
+	res.sendFile(`${__dirname}/public/generated-docs/index.html`);
 });
 
 // listen on assigned port

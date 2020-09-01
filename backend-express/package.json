@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "jest --passWithNoTests",
-    "start": "nodemon -r dotenv/config app.js"
+    "start": "nodemon -r dotenv/config app.js",
+    "doc":"apidoc -o public/generated-docs/ -e node_modules/"
   },
   "keywords": [
     "backend"
