@@ -1,8 +1,9 @@
 const router = require('express').Router();
 const User = require('../model/user')
-const validation = require('../functions/validation')
+const validation = require('../functions/userValidation')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+
 
 router.post('/register', async (req, res) => {
     console.log(req.body);
@@ -31,7 +32,10 @@ router.post('/register', async (req, res) => {
     })
     try {
         const savedUser = await user.save()
-        res.status(200).json(savedUser)
+        res.status(200).json({
+            message: "User Registered!",
+            details: savedUser
+        })
     } catch (err) {
         res.status(400).json({
             error: err
@@ -60,7 +64,7 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign({
         _id: user._id,
         access: user.accessLevel
-    }, "1CC9A79BDAF09793062750A17E559D40D5C0F1372CC859F67FE1081E6BC8A307")
+    }, process.env.SECRET)
     return res.header('auth_token', token).status(200).json({
         username: user.name,
         access_level: user.accessLevel
