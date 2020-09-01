@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config()
+const l3routes = require('./routes/level3')
 
 // port that backend uses to listen to incoming api calls
 const PORT = process.env.PORT || 5000;
@@ -15,7 +16,13 @@ mongoose.connect(process.env.MONGO_URL, {
     useUnifiedTopology: true
 }).then(() => console.log("db connection successful")).catch(error => console.error(error));
 
+// Authroutes
+const authRoute = require('./routes/auth')
 
+// middlewares
+app.use(express.json())
+app.use('/api/user', authRoute)
+app.use('/api/level3', l3routes)
 
 // endpoint for / route
 /**
@@ -31,7 +38,6 @@ mongoose.connect(process.env.MONGO_URL, {
 app.get('/', (req, res)=>{
 	res.status(200).send('Backend API / route');
 });
-
 
 // listen on assigned port
 app.listen(PORT, ()=>{
