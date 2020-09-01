@@ -8,8 +8,10 @@ export async function login_user(email, pass) {
             pass
         });
 
+        console.log(resp.headers)
+
         if (resp.status === 200) {
-            const authToken = await resp.headers.auth_token;
+            const authToken = await resp.data.auth_token;
             console.log(authToken)
             return {
                 token: authToken,
@@ -24,6 +26,35 @@ export async function login_user(email, pass) {
     } catch (error) {
         return {
             status: 403
+        }
+    }
+}
+
+export async function register_user(username, email, pass) {
+    try {
+        const resp = await axios(`${API_URL_USR}/register`, {
+            name: username,
+            email,
+            pass
+        })
+        const data = await resp.data;
+        if (!data.error) {
+            return {
+                status: true,
+                message: "User Registered"
+            }
+        } else {
+            return {
+                status: false,
+                messsage: "User Not Registered"
+            }
+        }
+
+    } catch (error) {
+        return {
+            status: false,
+            message: "error",
+            error
         }
     }
 }

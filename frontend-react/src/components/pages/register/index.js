@@ -5,6 +5,7 @@ import { UserOutlined, SolutionOutlined, LoadingOutlined, SmileOutlined, HddOutl
 import { openNotificationWithIcon } from '../../notification';
 import ReinFlowFooter from '../../footer/footer';
 import Headers from '../../header';
+import { register_user } from '../../../authentication/auth';
 
 const { Step } = Steps;
 const { Header, Content } = Layout;
@@ -27,10 +28,7 @@ function UserRegisteration() {
 		wrapperCol: { offset: 8, span: 16 }
 	};
 
-	const onFinish = (values) => {
-		/**
-         * this is a test case of steps. This should be updated once backend apis are implemented.
-         */
+	const onFinish = async (values) => {
 		setTimeout(() => {
 			setstatusUpdate({ ...statusUpdate, register: 'finish' });
 			setTimeout(() => {
@@ -49,6 +47,18 @@ function UserRegisteration() {
 				}, 500);
 			}, 500);
 		}, 500);
+
+		if (values.rego.password === values.rego.pass_confirmation) {
+			const construct = {
+				name: values.rego.username,
+				email: values.rego.email,
+				password: values.rego.password
+			};
+			const resp = await register_user(construct.name, construct.email, construct.password);
+			console.log(resp);
+			//TODO : INVALID PASS CONFIRMATION, MESSAGES
+		}
+
 		console.log('Success:', values);
 	};
 
