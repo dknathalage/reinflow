@@ -53,6 +53,10 @@ function Headers() {
 		);
 	};
 
+	const handleUserLogout = (e) => {
+		//do something
+	};
+
 	return user.auth_status === true ? (
 		<div>
 			<Header style={{ position: 'fixed', zIndex: 1, width: '100%', marginLeft: '150px' }}>
@@ -68,7 +72,7 @@ function Headers() {
 					</Menu.Item>
 				</Menu>
 			</Header>
-			<Sider collapsible style={{ minHeight: '100vh' }}>
+			<Sider style={{ minHeight: '100vh' }}>
 				<div className="logo" />
 				<Menu
 					theme="dark"
@@ -88,7 +92,7 @@ function Headers() {
 						<Menu.Item key="4" onClick={handleUserDashboard}>
 							<NavLink to="/user-dashboard">User Dashboard</NavLink>
 						</Menu.Item>
-						<Menu.Item key="4" onClick={handleUserDashboard} icon={<LockOutlined />}>
+						<Menu.Item key="5" onClick={handleUserLogout} icon={<LockOutlined />}>
 							<NavLink to="/login">Sign out</NavLink>
 						</Menu.Item>
 					</SubMenu>
