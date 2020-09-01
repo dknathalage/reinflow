@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config()
 const lightRoutes = require('./routes/lights')
+const sensorRoutes = require('./routes/sensors')
 
 // port that backend uses to listen to incoming api calls
 const PORT = process.env.PORT || 5000;
@@ -23,6 +24,8 @@ const authRoute = require('./routes/auth')
 app.use(express.json())
 app.use('/api/user', authRoute)
 app.use('/api/lights', lightRoutes)
+app.use('/api/sensors', sensorRoutes)
+
 
 // endpoint for / route
 /**
