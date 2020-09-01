@@ -22,3 +22,7 @@
     padding: 10px;
     flex: 0.5
 }
+
+.main-wrapper {
+    box-shadow: 0px -1px 35px -10px rgba(0, 0, 0, 0.75);
+}
