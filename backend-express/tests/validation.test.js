@@ -1,4 +1,4 @@
-const validation = require('../functions/validation');
+const validation = require('../functions/userValidation');
 
 describe('Register validation tests', ()=>{
     test('Validating name empty string', async ()=>{

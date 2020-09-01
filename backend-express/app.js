@@ -2,7 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config()
-const l3routes = require('./routes/level3')
+const lightRoutes = require('./routes/lights')
 
 // port that backend uses to listen to incoming api calls
 const PORT = process.env.PORT || 5000;
@@ -22,7 +22,7 @@ const authRoute = require('./routes/auth')
 // middlewares
 app.use(express.json())
 app.use('/api/user', authRoute)
-app.use('/api/level3', l3routes)
+app.use('/api/lights', lightRoutes)
 
 // endpoint for / route
 /**
