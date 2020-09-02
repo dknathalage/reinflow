@@ -19,6 +19,15 @@ export default function user_state(state = initialState, {
                 user_id: payload.user_id,
                 location: payload.location
             };
+            break;
+        case 'LOGOUT_USR':
+            return state = {
+                auth_status: false,
+                username: null,
+                user_id: null,
+                accesslevel: null,
+                location: []
+            };
         default:
             return state;
     }
