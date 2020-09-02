@@ -3,7 +3,7 @@ const User = require('../model/user')
 const validation = require('../functions/userValidation')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-
+const dotenv = require('dotenv').config()
 
 router.post('/register', async (req, res) => {
     console.log(req.body);
@@ -61,11 +61,12 @@ router.post('/login', async (req, res) => {
         message: "Invalid Password"
     })
 
-    const token = jwt.sign({
+    const token = await jwt.sign({
         _id: user._id,
         access: user.accessLevel
-    }, process.env.SECRET)
+    }, process.env.SECRET_TOKEN)
     return res.header('auth_token', token).status(200).json({
+        token:token,
         username: user.name,
         access_level: user.accessLevel
     })
