@@ -40,9 +40,8 @@ function UserLogin() {
   };
 
   const onFinish = async (values) => {
-    console.log("Success:", values);
     const data = await login_user(values.email, values.password);
-    console.log(data);
+    console.log(data)
     if (!data.token) {
       openNotificationWithIcon(
         "warning",
