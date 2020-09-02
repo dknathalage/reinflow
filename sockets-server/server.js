@@ -1,28 +1,40 @@
-var http = require('http');
-var express = require('express');
-var app = express();
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
+var express = require('express')();
+var server = require('http').Server(express);
+const io = require('socket.io')(server, {
+    pingInterval: 10000,
+    pingTimeout: 5000
+});
+const PORT = 5001;
 
-const PORT = 5000;
+var sensors = [];
 
 server.listen(PORT, () => {
     console.log("Started on " + PORT)
 });
 
-app.get('/', function (req, res) {
+express.get('/', function (req, res) {
     res.json({
         status: "LIVE",
-        clients: []
+        clients: sensors
     })
 });
+//sensors
+const sensorIO = io.of("/sensors");
 
-io.on('connection', function (socket) {
-    console.log(`New endpoint connected to server. ${socket.id}`);
-    //on connect
-    socket.emit('welcome', {
-        res: "Connection Acknowledged!"
+sensorIO.on('connection', socket => {
+    console.log("New sensor Connected with id : ", socket.conn.id)
+    socket.on('ack-conn', function (data) {
+        const details = {
+            id: socket.conn.id
+        }
+        sensors.push(details)
+        console.log(data);
+    })
+    socket.on('disconnect', () => {
+        console.log("Sensor Disconnected", socket.conn.id)
     })
 
-    //TODO: custom events when sensors are added.
-});
+    socket.on('sensor-1-data-payload', function (data) { //hook to handle sensor 1 payload
+        console.log(data);
+    })
+})
