@@ -10,8 +10,6 @@ export default class ReinFlowMap extends React.Component {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 />
-
-
             </Map>
         </>
     }
