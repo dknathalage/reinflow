@@ -13,7 +13,7 @@ export default function user_state(state = initialState, {
             return state = {
                 auth_status: payload.auth_status,
                 username: payload.username,
-                accesslevel: payload.accesslevel
+                accesslevel: payload.accessLevel
             };
         default:
             return state;
