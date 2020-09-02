@@ -10,16 +10,20 @@ export async function login_user(email, pass) {
             email,
             pass
         });
-        
+
         if (resp.status === 200) {
             const authToken = await resp.data.token;
             cookies.set('token', authToken);
             cookies.set('name', resp.data.username);
             cookies.set('accessLevel', resp.data.access_level)
+            const response = await axios.get('https://ipapi.co/json/');
+            const loc_data = response.data;
             return {
                 token: authToken,
                 username: resp.data.username,
                 accessLevel: resp.data.access_level,
+                id: resp.data.id,
+                location: loc_data,
                 status: 200
             }
         }
