@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Menu, Breadcrumb } from 'antd';
 
 import ReinFlowFooter from '../../footer/footer';
+
 import Headers from '../../header';
 const { Header, Content } = Layout;
 
@@ -17,7 +18,8 @@ function Dashboard() {
 						<Breadcrumb.Item>Overview</Breadcrumb.Item>
 					</Breadcrumb>
 					<div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-						Admin Dashboard
+						
+						Dashboard
 					</div>
 				</Content>
 				<ReinFlowFooter />
