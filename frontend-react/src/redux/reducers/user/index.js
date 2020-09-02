@@ -1,6 +1,6 @@
 const initialState = {
-    auth_status: true,
-    username: "SHERON",
+    auth_status: false,
+    username: null,
     accesslevel: null
 }
 
