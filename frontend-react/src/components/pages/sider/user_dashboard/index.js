@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
 	Layout,
 	Menu,
@@ -27,6 +27,18 @@ const { Panel } = Collapse;
 
 function UserDashboard() {
 	const user = useSelector((state) => state.user);
+	const [ isLoading, setisLoading ] = useState(true);
+
+	useEffect(() => {
+		setTimeout(() => {
+			setisLoading(false);
+		}, 1000);
+
+		return () => {
+			//cleanup
+		};
+	}, []);
+
 	const data = [
 		{
 			title: 'User ID',
@@ -139,6 +151,7 @@ function UserDashboard() {
 									}
 									bordered={true}
 									hoverable
+									loading={isLoading}
 								>
 									<List
 										itemLayout="horizontal"
@@ -165,6 +178,7 @@ function UserDashboard() {
 									}
 									bordered={true}
 									hoverable
+									style={{ overflow: 'auto' }}
 								>
 									<Collapse
 										bordered={false}
