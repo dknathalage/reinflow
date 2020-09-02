@@ -108,6 +108,9 @@ function Headers() {
 						<Menu.Item key="5">Sensor 1</Menu.Item>
 						<Menu.Item key="6">Sensor 2</Menu.Item>
 					</SubMenu>
+					<Menu.Item key="5" onClick={handleUserLogout} icon={<LockOutlined />}>
+						<NavLink to="/login">Sign out</NavLink>
+					</Menu.Item>
 				</Menu>
 			</Sider>
 		</div>
