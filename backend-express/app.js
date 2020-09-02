@@ -1,15 +1,23 @@
 // imports
+const dotenv = require('dotenv').config()
 const express = require('express');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv').config()
 const lightRoutes = require('./routes/lights')
 const sensorRoutes = require('./routes/sensors')
+const cors = require('cors')
 
 // port that backend uses to listen to incoming api calls
 const PORT = process.env.PORT || 5000;
 
 // starting point
 const app = express()
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
 
 // serving static docs
 app.use(express.static(`${__dirname}/public/generated-docs`))
@@ -41,11 +49,11 @@ app.use('/api/sensors', sensorRoutes)
  *	Backend API / route
  * }
  * */
-app.get('/', (req, res)=>{
-	res.sendFile(`${__dirname}/public/generated-docs/index.html`);
+app.get('/', (req, res) => {
+    res.sendFile(`${__dirname}/public/generated-docs/index.html`);
 });
 
 // listen on assigned port
-app.listen(PORT, ()=>{
-	console.log(`listening on http://localhost:${PORT}`);
+app.listen(PORT, () => {
+    console.log(`listening on http://localhost:${PORT}`);
 })
