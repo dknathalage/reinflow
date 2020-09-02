@@ -10,12 +10,9 @@ export async function login_user(email, pass) {
             email,
             pass
         });
-
-        console.log(resp)
-
+        
         if (resp.status === 200) {
-            const authToken = await resp.data.auth_token;
-            console.log(authToken)
+            const authToken = await resp.data.token;
             cookies.set('token', authToken);
             cookies.set('name', resp.data.username);
             cookies.set('accessLevel', resp.data.access_level)
