@@ -1,0 +1,32 @@
+{
+  "name": "backend-express",
+  "version": "0.0.1",
+  "description": "Backend server of REINFLOW traffic control platform",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest --passWithNoTests",
+    "start": "nodemon -r dotenv/config app.js",
+    "build": "apidoc -o public/generated-docs/ -e node_modules/"
+  },
+  "keywords": [
+    "backend"
+  ],
+  "author": "Kushan-Nilanga",
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "axios": "^0.20.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jest": "^26.4.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.2",
+    "supertest": "^4.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}

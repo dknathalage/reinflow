@@ -1,0 +1,7 @@
+{
+    "name": "Backend API",
+    "version": "0.2.1",
+    "description": "List of endpoints for the Reinflow Backend API",
+    "title": "Reinflow backend API",
+    "url": "http://localhost:5000"
+}

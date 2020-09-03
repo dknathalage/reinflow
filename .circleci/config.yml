@@ -1,7 +1,20 @@
-version: 2.1
-orbs:
-  node: circleci/node@3.0.0
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:14
+    steps:
+      - checkout
+      - run: cd frontend-react && npm install
+  test:
+    docker:
+      - image: circleci/node:14
+    steps:
+      - checkout
+      - run: cd frontend-react && npm install && npm test
 workflows:
-  node-tests:
+  version: 2
+  build_and_test:
     jobs:
-      - node/test
+      - build
+      - test
