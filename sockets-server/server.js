@@ -1,5 +1,6 @@
 var express = require('express')();
 var server = require('http').Server(express);
+var backendRoute = require('./respond-backend')
 const io = require('socket.io')(server, {
     pingInterval: 10000,
     pingTimeout: 5000
@@ -20,6 +21,8 @@ express.get('/', function (req, res) {
 });
 //sensors
 const sensorIO = io.of("/sensors");
+
+express.use('/device-data', backendRoute);
 
 sensorIO.on('connection', socket => {
     console.log("New sensor Connected with id : ", socket.conn.id)
