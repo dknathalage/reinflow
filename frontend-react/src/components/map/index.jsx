@@ -18,7 +18,7 @@ class ReinFlowMap extends React.Component {
 	}
 
 	getLightData = () => {
-		this.intervalID = setTimeout(this.getData.bind(this), 5000);
+		this.intervalID = setTimeout(this.getLightData.bind(this), 5000);
 	}
 
 	componentWillUnmount() {
