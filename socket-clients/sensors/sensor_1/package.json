@@ -1,0 +1,14 @@
+{
+  "name": "sensor_1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "sensor_1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sheron Suditha",
+  "license": "MIT",
+  "dependencies": {
+    "socket.io-client": "^2.3.0"
+  }
+}
