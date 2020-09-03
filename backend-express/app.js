@@ -51,7 +51,7 @@ app.use('/api/realtime', realtimeRoutes)
  * }
  * */
 app.get('/', (req, res) => {
-    res.sendFile(`${__dirname}/public/generated-docs/index.html`);
+    res.sendFile(`/public/generated-docs/index.html`);
 });
 
 // listen on assigned port
