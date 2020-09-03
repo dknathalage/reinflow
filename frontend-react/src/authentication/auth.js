@@ -11,6 +11,7 @@ export async function login_user(email, pass) {
             const authToken = await resp.data.token;
             const response = await axios.get('https://ipapi.co/json/');
             const loc_data = response.data;
+            localStorage.setItem('auth-token', authToken)
             return {
                 token: authToken,
                 username: resp.data.username,
