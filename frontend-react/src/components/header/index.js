@@ -10,11 +10,12 @@ import {
 	LockOutlined
 } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
-
+import { logout } from '../../redux/actions/user';
 import { useSelector, useDispatch } from 'react-redux';
 import { set_directory } from '../../redux/actions/directory';
 import logo from '../../assets/REINFLOW.png';
 import Avatar from 'antd/lib/avatar/avatar';
+import { openNotificationWithIcon } from '../notification';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
@@ -54,7 +55,8 @@ function Headers() {
 	};
 
 	const handleUserLogout = (e) => {
-		//do something
+		dispatch(logout());
+		openNotificationWithIcon('success', 'Logout Manager', 'You are now logged out!');
 	};
 
 	return user.auth_status === true ? (
@@ -106,6 +108,9 @@ function Headers() {
 						<Menu.Item key="5">Sensor 1</Menu.Item>
 						<Menu.Item key="6">Sensor 2</Menu.Item>
 					</SubMenu>
+					<Menu.Item key="5" onClick={handleUserLogout} icon={<LockOutlined />}>
+						<NavLink to="/login">Sign out</NavLink>
+					</Menu.Item>
 				</Menu>
 			</Sider>
 		</div>
@@ -119,7 +124,7 @@ function Headers() {
 					</Menu.Item>
 				</Menu>
 			</Header>
-			<Sider collapsible style={{ minHeight: '100vh' }}>
+			<Sider style={{ height: '100vh' }}>
 				<div className="logo" />
 				<Menu theme="dark" defaultSelectedKeys={[ '1' ]} mode="inline" style={{ marginTop: '60px' }}>
 					<Menu.Item key="1" icon={<PieChartOutlined />}>
