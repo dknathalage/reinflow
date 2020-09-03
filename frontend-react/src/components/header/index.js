@@ -1,58 +1,27 @@
 import React from 'react';
 
-import { Layout, Menu, Breadcrumb, Badge } from 'antd';
+import { Layout, Menu } from 'antd';
 import {
-	DesktopOutlined,
 	PieChartOutlined,
-	FileOutlined,
-	TeamOutlined,
 	UserOutlined,
-	LockOutlined
+	LockOutlined,
+	ControlOutlined,
+	CoffeeOutlined,
+	ExportOutlined,
+	VideoCameraAddOutlined
 } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
 import { logout } from '../../redux/actions/user';
 import { useSelector, useDispatch } from 'react-redux';
-import { set_directory } from '../../redux/actions/directory';
 import logo from '../../assets/REINFLOW.png';
 import Avatar from 'antd/lib/avatar/avatar';
 import { openNotificationWithIcon } from '../notification';
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
-
 function Headers() {
 	const user = useSelector((state) => state.user);
 	const dir = useSelector((state) => state.dir);
 	const dispatch = useDispatch();
-
-	const handleOnClick = (e) => {
-		dispatch(
-			set_directory({
-				current_dir: 'Home',
-				dir_key: 1,
-				sider_key: null
-			})
-		);
-	};
-
-	const handleOnClick2 = (e) => {
-		dispatch(
-			set_directory({
-				current_dir: 'Admin',
-				dir_key: 2,
-				sider_key: null
-			})
-		);
-	};
-
-	const handleUserDashboard = (e) => {
-		dispatch(
-			set_directory({
-				current_dir: 'User/Dashboard',
-				dir_key: 1,
-				sider_key: 4
-			})
-		);
-	};
 
 	const handleUserLogout = (e) => {
 		dispatch(logout());
@@ -61,55 +30,114 @@ function Headers() {
 
 	return user.auth_status === true ? (
 		<div>
-			<Header style={{ position: 'fixed', zIndex: 1, width: '100%', marginLeft: '150px' }}>
-				<Menu theme="dark" mode="horizontal" defaultSelectedKeys={[ `${dir.dir_key}` ]}>
-					<Menu.Item key="1" onClick={handleOnClick}>
-						<NavLink to="/">Home</NavLink>
-					</Menu.Item>
-					<Menu.Item key="2" onClick={handleOnClick2}>
-						<NavLink to="/dashboard">Admin</NavLink>
-					</Menu.Item>
-					<Menu.Item key="3">
-						<NavLink to="/stats">Statistics</NavLink>
+			<Header style={{ position: 'absolute', zIndex: 2, width: '100%', marginLeft: '-50px' }}>
+				<div className="logo" />
+				<Menu theme="dark" mode="horizontal" defaultSelectedKeys={[ '1' ]}>
+					<Menu.Item
+						key="1"
+						icon={<Avatar size={45} icon={<UserOutlined style={{ fontSize: 45 }} />} />}
+						style={{ width: '200px' }}
+					>
+						<strong style={{ padding: '10px' }}>{user.username}</strong>
 					</Menu.Item>
 				</Menu>
 			</Header>
-			<Sider style={{ minHeight: '100vh' }}>
-				<div className="logo" />
-				<Menu
-					theme="dark"
-					defaultSelectedKeys={[ `${dir.sider_key}` ]}
-					mode="inline"
-					style={{ marginTop: '70px' }}
-				>
-					<SubMenu
-						key="1"
-						icon={<Avatar size="small" icon={<UserOutlined />} />}
-						title={
-							<span style={{ color: 'white', fontWeight: 'bolder', padding: '10px' }}>
-								{user.username}
-							</span>
-						}
-					>
-						<Menu.Item key="4" onClick={handleUserDashboard}>
-							<NavLink to="/user-dashboard">User Dashboard</NavLink>
-						</Menu.Item>
-						<Menu.Item key="5" onClick={handleUserLogout} icon={<LockOutlined />}>
-							<NavLink to="/login">Sign out</NavLink>
-						</Menu.Item>
-					</SubMenu>
-					<Menu.Item key="2" icon={<DesktopOutlined />}>
-						Option 2
+			<Header style={{ width: '100%' }}>
+				<Menu theme="dark" mode="horizontal">
+					<Menu.Item key="1" disabled>
+						<strong style={{ padding: '10px' }} />
 					</Menu.Item>
-					<SubMenu key="sub1" icon={<UserOutlined />} title="Predictions">
-						<Menu.Item key="3">Something here</Menu.Item>
-					</SubMenu>
-					<SubMenu key="sub2" icon={<TeamOutlined />} title="Sensors">
-						<Menu.Item key="5">Sensor 1</Menu.Item>
-						<Menu.Item key="6">Sensor 2</Menu.Item>
-					</SubMenu>
-					<Menu.Item key="5" onClick={handleUserLogout} icon={<LockOutlined />}>
-						<NavLink to="/login">Sign out</NavLink>
+				</Menu>
+			</Header>
+
+			<Sider style={{ minHeight: '100vh', width: '20px' }}>
+				<div className="logo" />
+				<Menu theme="dark" mode="inline" style={{ marginTop: '20px' }}>
+					<Menu.Item
+						key="1"
+						icon={
+							<ControlOutlined
+								style={{
+									fontSize: '25px'
+								}}
+							/>
+						}
+						style={{
+							marginBottom: '10px',
+							padding: '10px',
+							height: '60px'
+						}}
+					>
+						<NavLink to="/">
+							<strong>Home</strong>
+						</NavLink>
+					</Menu.Item>
+					<Menu.Item
+						key="4"
+						icon={<CoffeeOutlined style={{ fontSize: '25px', marginBottom: '10px' }} />}
+						style={{
+							marginBottom: '10px',
+							padding: '10px',
+							height: '60px'
+						}}
+					>
+						<NavLink to="/user-dashboard">
+							<strong>User Dashboard</strong>
+						</NavLink>
+					</Menu.Item>
+					{user.accesslevel === 3 ? (
+						<Menu.Item
+							key="5"
+							icon={<LockOutlined style={{ fontSize: '25px' }} />}
+							style={{
+								marginBottom: '10px',
+								padding: '10px',
+								height: '60px'
+							}}
+						>
+							<NavLink to="/login">
+								<strong>Admin</strong>
+							</NavLink>
+						</Menu.Item>
+					) : (
+						''
+					)}
+					{user.accesslevel === 3 ? (
+						<SubMenu
+							key="sub1"
+							icon={<UserOutlined style={{ fontSize: '25px' }} />}
+							title={<strong>Management</strong>}
+						>
+							<Menu.Item
+								key="6"
+								icon={<VideoCameraAddOutlined style={{ fontSize: '25px' }} />}
+								style={{
+									marginBottom: '10px',
+									padding: '10px',
+									height: '60px'
+								}}
+							>
+								<NavLink to="/management-sensors">
+									<strong>Sensors</strong>
+								</NavLink>
+							</Menu.Item>
+						</SubMenu>
+					) : (
+						''
+					)}
+					<Menu.Item
+						key="99"
+						onClick={handleUserLogout}
+						icon={<ExportOutlined style={{ fontSize: '25px' }} />}
+						style={{
+							marginBottom: '10px',
+							padding: '10px',
+							height: '60px'
+						}}
+					>
+						<NavLink to="/login">
+							<strong>Sign out</strong>
+						</NavLink>
 					</Menu.Item>
 				</Menu>
 			</Sider>
@@ -120,15 +148,15 @@ function Headers() {
 				<div className="logo" />
 				<Menu theme="dark" mode="horizontal" defaultSelectedKeys={[ '1' ]}>
 					<Menu.Item key="1">
-						<NavLink to="/">Home</NavLink>
+						<strong>SIGN IN</strong>
 					</Menu.Item>
 				</Menu>
 			</Header>
 			<Sider style={{ height: '100vh' }}>
 				<div className="logo" />
 				<Menu theme="dark" defaultSelectedKeys={[ '1' ]} mode="inline" style={{ marginTop: '60px' }}>
-					<Menu.Item key="1" icon={<PieChartOutlined />}>
-						Overview
+					<Menu.Item key="1" icon={<PieChartOutlined style={{ fontSize: '25px' }} />}>
+						<strong>WELCOME</strong>
 					</Menu.Item>
 				</Menu>
 			</Sider>
