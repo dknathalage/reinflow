@@ -7,7 +7,8 @@ import {
 	LockOutlined,
 	ControlOutlined,
 	CoffeeOutlined,
-	ExportOutlined
+	ExportOutlined,
+	VideoCameraAddOutlined
 } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
 import { logout } from '../../redux/actions/user';
@@ -16,7 +17,7 @@ import logo from '../../assets/REINFLOW.png';
 import Avatar from 'antd/lib/avatar/avatar';
 import { openNotificationWithIcon } from '../notification';
 const { Header, Content, Footer, Sider } = Layout;
-
+const { SubMenu } = Menu;
 function Headers() {
 	const user = useSelector((state) => state.user);
 	const dir = useSelector((state) => state.dir);
@@ -29,11 +30,22 @@ function Headers() {
 
 	return user.auth_status === true ? (
 		<div>
+			<Header style={{ position: 'absolute', zIndex: 2, width: '100%', marginLeft: '-50px' }}>
+				<div className="logo" />
+				<Menu theme="dark" mode="horizontal" defaultSelectedKeys={[ '1' ]}>
+					<Menu.Item
+						key="1"
+						icon={<Avatar size={45} icon={<UserOutlined style={{ fontSize: 45 }} />} />}
+						style={{ width: '200px' }}
+					>
+						<strong style={{ padding: '10px' }}>{user.username}</strong>
+					</Menu.Item>
+				</Menu>
+			</Header>
 			<Header style={{ width: '100%' }}>
 				<Menu theme="dark" mode="horizontal">
 					<Menu.Item key="1" disabled>
-						<Avatar size={45} icon={<UserOutlined style={{ fontSize: 45 }} />} />
-						<strong style={{ padding: '10px' }}>{user.username}</strong>
+						<strong style={{ padding: '10px' }} />
 					</Menu.Item>
 				</Menu>
 			</Header>
@@ -87,6 +99,29 @@ function Headers() {
 								<strong>Admin</strong>
 							</NavLink>
 						</Menu.Item>
+					) : (
+						''
+					)}
+					{user.accesslevel === 3 ? (
+						<SubMenu
+							key="sub1"
+							icon={<UserOutlined style={{ fontSize: '25px' }} />}
+							title={<strong>Management</strong>}
+						>
+							<Menu.Item
+								key="6"
+								icon={<VideoCameraAddOutlined style={{ fontSize: '25px' }} />}
+								style={{
+									marginBottom: '10px',
+									padding: '10px',
+									height: '60px'
+								}}
+							>
+								<NavLink to="/management-sensors">
+									<strong>Sensors</strong>
+								</NavLink>
+							</Menu.Item>
+						</SubMenu>
 					) : (
 						''
 					)}
