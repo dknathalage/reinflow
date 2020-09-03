@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Menu, Breadcrumb } from 'antd';
-import ReinFlowMap from '../../../components/map'
+import ReinFlowMap from '../../../components/map';
 
 import './admin.css';
 import ReinFlowFooter from '../../footer/footer';
@@ -20,7 +20,7 @@ export default function AdminHome() {
 						<Breadcrumb.Item>Overview</Breadcrumb.Item>
 					</Breadcrumb>
 					<div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
-						<ReinFlowMap></ReinFlowMap>
+						<ReinFlowMap />
 					</div>
 				</Content>
 				<ReinFlowFooter />

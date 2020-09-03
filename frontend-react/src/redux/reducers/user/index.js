@@ -1,7 +1,9 @@
 const initialState = {
     auth_status: false,
     username: null,
-    accesslevel: null
+    user_id: null,
+    accesslevel: null,
+    location: []
 }
 
 export default function user_state(state = initialState, {
@@ -13,7 +15,18 @@ export default function user_state(state = initialState, {
             return state = {
                 auth_status: payload.auth_status,
                 username: payload.username,
-                accesslevel: payload.accesslevel
+                accesslevel: payload.accessLevel,
+                user_id: payload.user_id,
+                location: payload.location
+            };
+            break;
+        case 'LOGOUT_USR':
+            return state = {
+                auth_status: false,
+                username: null,
+                user_id: null,
+                accesslevel: null,
+                location: []
             };
         default:
             return state;
