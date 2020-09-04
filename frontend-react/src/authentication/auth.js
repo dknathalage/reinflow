@@ -1,5 +1,6 @@
 import axios from 'axios';
-const API_URL_USR = `http://reinflow-backend.vercel.app/api/user`
+import {API_URL} from './urls'
+const API_URL_USR = `${API_URL}/api/user`
 export async function login_user(email, pass) {
     try {
         const resp = await axios.post(`${API_URL_USR}/login`, {
