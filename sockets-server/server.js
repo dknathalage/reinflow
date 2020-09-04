@@ -24,7 +24,7 @@ express.get('/', function (req, res) {
 //sensors
 const sensorIO = io.of("/sensors");
 
-express.use('/device-data', backendRoute);
+express.use('/devicedata', backendRoute);
 
 sensorIO.on('connection', socket => {
     console.log("New sensor Connected with id : ", socket.conn.id)

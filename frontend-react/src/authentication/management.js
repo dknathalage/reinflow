@@ -1,5 +1,6 @@
 import axios from 'axios';
-const API_ACCESS = `http://localhost:5000/api/sensors`;
+import {API_URL} from './urls'
+const API_ACCESS = `${API_URL}/api/sensors`;
 const config = {
 	headers: {
 		Authorization: localStorage.getItem('auth-token')
