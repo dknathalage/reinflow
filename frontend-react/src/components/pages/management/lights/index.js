@@ -37,7 +37,12 @@ function LightManagement() {
 			id: 0,
 			status: 'finish'
 		});
-		const resp = await add_new_light(values.light.lat, values.light.lon);
+		const resp = await add_new_light(
+			values.light.name,
+			values.light.description,
+			values.light.lat,
+			values.light.lon
+		);
 		if (resp.status === true) {
 			setstatus({
 				id: 1,
