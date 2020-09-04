@@ -67,11 +67,11 @@ function LightManagement() {
 	};
 
 	return (
-		<Layout style={{ minHeight: '100vh' }}>
+		<React.Fragment>
 			<Headers />
-			<Layout className="site-layout">
-				<Header className="site-layout-background" style={{ padding: 0 }} />
-				<Content style={{ margin: '0 16px' }}>
+			<Layout className="site-layout" style={{ marginLeft: 200, minHeight: '100vh' }}>
+				<Header className="site-layout-background" style={{ padding: 0, position: 'fixed', width: '100%' }} />
+				<Content style={{ margin: '29px 16px 0', overflow: 'initial' }}>
 					<Breadcrumb style={{ margin: '16px 0' }}>
 						<Breadcrumb.Item>Management</Breadcrumb.Item>
 						<Breadcrumb.Item>Light</Breadcrumb.Item>
@@ -96,7 +96,7 @@ function LightManagement() {
 						</Steps>
 					</div>
 
-					<div className="site-layout-background light__dash" style={{ padding: 24, minHeight: 360 }}>
+					<div className="site-layout-background light__dash" style={{ padding: 24 }}>
 						<h1>Add a light to the platform</h1>
 						<div style={{ display: 'flex' }}>
 							<div style={{ flex: '0.5' }}>
@@ -177,7 +177,7 @@ function LightManagement() {
 				</Content>
 				<ReinFlowFooter />
 			</Layout>
-		</Layout>
+		</React.Fragment>
 	);
 }
 

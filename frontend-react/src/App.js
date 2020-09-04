@@ -16,12 +16,19 @@ import { SmileOutlined } from '@ant-design/icons';
 import Headers from './components/header';
 import ReinFlowFooter from './components/footer/footer';
 const { Header, Content } = Layout;
+
 function App() {
 	const openNotification = () => {
 		notification.open({
 			message: 'Loading you in',
 			description: 'Fetching your data!',
-			icon: <SmileOutlined style={{ color: '#108ee9' }} />
+			icon: (
+				<SmileOutlined
+					style={{
+						color: '#108ee9'
+					}}
+				/>
+			)
 		});
 	};
 
@@ -46,32 +53,61 @@ function App() {
 				}}
 			/>
 		) : (
-			<Layout style={{ minHeight: '100vh' }}>
+			<React.Fragment>
 				<Headers />
-				<Layout className="site-layout">
-					<Header className="site-layout-background" style={{ padding: 0 }} />
-					<Content style={{ margin: '0 16px' }}>
-						<Breadcrumb style={{ margin: '16px 0' }}>
-							<Breadcrumb.Item>Home</Breadcrumb.Item>
-							<Breadcrumb.Item>Overview</Breadcrumb.Item>
+				<Layout
+					className="site-layout"
+					style={{
+						marginLeft: 200,
+						minHeight: '100vh'
+					}}
+				>
+					<Header
+						className="site-layout-background"
+						style={{
+							padding: 0,
+							position: 'fixed',
+							width: '100%'
+						}}
+					/>
+					<Content
+						style={{
+							margin: '29px 16px 0',
+							overflow: 'initial'
+						}}
+					>
+						<Breadcrumb
+							style={{
+								margin: '16px 0'
+							}}
+						>
+							<Breadcrumb.Item> Home </Breadcrumb.Item> <Breadcrumb.Item> Overview </Breadcrumb.Item>
 						</Breadcrumb>
 						<div
 							className="site-layout-background"
 							style={{
 								padding: 24,
-								height: 360,
-								display: 'flex',
-								justifyContent: 'center',
-								alignItems: 'center'
+								textAlign: 'center'
 							}}
 						>
-							<Spin size="large" />
+							<div
+								className="site-layout-background"
+								style={{
+									padding: 24,
+									height: 360,
+									display: 'flex',
+									justifyContent: 'center',
+									alignItems: 'center'
+								}}
+							>
+								<Spin size="large" />
+							</div>
+							{openNotification()}
 						</div>
-						{openNotification()}
 					</Content>
 					<ReinFlowFooter />
 				</Layout>
-			</Layout>
+			</React.Fragment>
 		);
 	};
 	return (
