@@ -1,1 +1,1 @@
-export let API_URL = 'http://128.199.137.255:5000'
+export let API_URL = 'https://reinflow-backend.vercel.app'
