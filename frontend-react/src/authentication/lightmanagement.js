@@ -1,12 +1,11 @@
 import axios from 'axios';
-import {API_URL} from './urls'
-const API_ACCESS = `${API_URL}/api/sensors`;
+const API_ACCESS = `http://localhost:5000/api/lights`;
 const config = {
 	headers: {
 		Authorization: localStorage.getItem('auth-token')
 	}
 };
-export async function add_new_sensor(lat, lon) {
+export async function add_new_light(lat, lon) {
 	try {
 		const resp = await axios.post(
 			`${API_ACCESS}/register`,
@@ -27,7 +26,7 @@ export async function add_new_sensor(lat, lon) {
 				error: resp.error
 			};
 		}
-	} catch (error) {
+	} catch (error) { //comment
 		return {
 			status: false,
 			error

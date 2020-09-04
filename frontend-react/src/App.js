@@ -8,6 +8,7 @@ import UserLogin from './components/pages/login';
 import UserRegisteration from './components/pages/register';
 import UserDashboard from './components/pages/sider/user_dashboard';
 import SensorManagement from './components/pages/management/sensors';
+import LightManagement from './components/pages/management/lights';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { message, Spin, notification } from 'antd';
@@ -60,6 +61,7 @@ function App() {
 					<Route path="/register" exact component={UserRegisteration} />
 					<ProtectedRoute path="/user-dashboard" exact component={UserDashboard} />
 					<ProtectedRoute path="/management-sensors" exact component={SensorManagement} />
+					<ProtectedRoute path="/management-lights" exact component={LightManagement} />
 					<Route component={Error} />
 				</Switch>
 			</div>
