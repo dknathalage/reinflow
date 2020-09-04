@@ -3,7 +3,7 @@ import Headers from '../../../header';
 import { PageHeader, Layout, Breadcrumb, Input, Form, InputNumber, Button, Steps } from 'antd';
 import ReinFlowFooter from '../../../footer/footer';
 import './lights.css';
-import { add_new_light } from '../../../../authentication/lightmanagement';
+import { add_new_light } from '../../../../authentication/management';
 import { openNotificationWithIcon } from '../../../notification';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -37,7 +37,12 @@ function LightManagement() {
 			id: 0,
 			status: 'finish'
 		});
-		const resp = await add_new_light(values.light.lot, values.light.lon);
+		const resp = await add_new_light(
+			values.light.name,
+			values.light.description,
+			values.light.lat,
+			values.light.lon
+		);
 		if (resp.status === true) {
 			setstatus({
 				id: 1,
@@ -62,11 +67,11 @@ function LightManagement() {
 	};
 
 	return (
-		<Layout style={{ minHeight: '100vh' }}>
+		<React.Fragment>
 			<Headers />
-			<Layout className="site-layout">
-				<Header className="site-layout-background" style={{ padding: 0 }} />
-				<Content style={{ margin: '0 16px' }}>
+			<Layout className="site-layout" style={{ marginLeft: 200, minHeight: '100vh' }}>
+				<Header className="site-layout-background" style={{ padding: 0, position: 'fixed', width: '100%' }} />
+				<Content style={{ margin: '29px 16px 0', overflow: 'initial' }}>
 					<Breadcrumb style={{ margin: '16px 0' }}>
 						<Breadcrumb.Item>Management</Breadcrumb.Item>
 						<Breadcrumb.Item>Light</Breadcrumb.Item>
@@ -91,7 +96,7 @@ function LightManagement() {
 						</Steps>
 					</div>
 
-					<div className="site-layout-background light__dash" style={{ padding: 24, minHeight: 360 }}>
+					<div className="site-layout-background light__dash" style={{ padding: 24 }}>
 						<h1>Add a light to the platform</h1>
 						<div style={{ display: 'flex' }}>
 							<div style={{ flex: '0.5' }}>
@@ -172,7 +177,7 @@ function LightManagement() {
 				</Content>
 				<ReinFlowFooter />
 			</Layout>
-		</Layout>
+		</React.Fragment>
 	);
 }
 

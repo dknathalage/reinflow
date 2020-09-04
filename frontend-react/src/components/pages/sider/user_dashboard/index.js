@@ -81,10 +81,10 @@ function UserDashboard() {
 	};
 
 	return (
-		<Layout style={{ minHeight: '100vh' }}>
+		<React.Fragment>
 			<Headers />
-			<Layout className="site-layout">
-				<Header className="site-layout-background" style={{ padding: 0 }} />
+			<Layout className="site-layout" style={{ marginLeft: 200, minHeight: '100vh' }}>
+				<Header className="site-layout-background" style={{ padding: 0, position: 'fixed', width: '100%' }} />
 				<Content style={{ margin: '0 16px' }}>
 					<Breadcrumb style={{ margin: '16px 0' }}>
 						<Breadcrumb.Item>User</Breadcrumb.Item>
@@ -296,7 +296,7 @@ function UserDashboard() {
 				</Content>
 				<ReinFlowFooter />
 			</Layout>
-		</Layout>
+		</React.Fragment>
 	);
 }
 
