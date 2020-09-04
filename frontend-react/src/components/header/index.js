@@ -8,7 +8,8 @@ import {
 	ControlOutlined,
 	CoffeeOutlined,
 	ExportOutlined,
-	VideoCameraAddOutlined
+	VideoCameraAddOutlined,
+	BulbOutlined
 } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
 import { logout } from '../../redux/actions/user';
@@ -124,7 +125,7 @@ function Headers() {
 
 							<Menu.Item
 								key="7"
-								icon={<VideoCameraAddOutlined style={{ fontSize: '25px' }} />}
+								icon={<BulbOutlined style={{ fontSize: '25px' }} />}
 								style={{
 									marginBottom: '10px',
 									padding: '10px',
