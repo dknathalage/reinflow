@@ -37,7 +37,12 @@ function SensorManagement() {
 			id: 0,
 			status: 'finish'
 		});
-		const resp = await add_new_sensor(values.sensor.lat, values.sensor.lon);
+		const resp = await add_new_sensor(
+			values.sensor.name,
+			values.sensor.description,
+			values.sensor.lat,
+			values.sensor.lon
+		);
 		if (resp.status === true) {
 			setstatus({
 				id: 1,
