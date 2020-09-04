@@ -3,7 +3,7 @@ import Headers from '../../../header';
 import { PageHeader, Layout, Breadcrumb, Input, Form, InputNumber, Button, Steps } from 'antd';
 import ReinFlowFooter from '../../../footer/footer';
 import './lights.css';
-import { add_new_light } from '../../../../authentication/lightmanagement';
+import { add_new_light } from '../../../../authentication/management';
 import { openNotificationWithIcon } from '../../../notification';
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -37,7 +37,7 @@ function LightManagement() {
 			id: 0,
 			status: 'finish'
 		});
-		const resp = await add_new_light(values.light.lot, values.light.lon);
+		const resp = await add_new_light(values.light.lat, values.light.lon);
 		if (resp.status === true) {
 			setstatus({
 				id: 1,
