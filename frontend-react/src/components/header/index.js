@@ -32,7 +32,6 @@ function Headers() {
 	return user.auth_status === true ? (
 		<div>
 			<Header style={{ position: 'absolute', zIndex: 2, width: '100%', marginLeft: '-50px' }}>
-				<div className="logo" />
 				<Menu theme="dark" mode="horizontal" defaultSelectedKeys={[ '1' ]}>
 					<Menu.Item
 						key="1"
@@ -43,16 +42,8 @@ function Headers() {
 					</Menu.Item>
 				</Menu>
 			</Header>
-			<Header style={{ width: '100%' }}>
-				<Menu theme="dark" mode="horizontal">
-					<Menu.Item key="1" disabled>
-						<strong style={{ padding: '10px' }} />
-					</Menu.Item>
-				</Menu>
-			</Header>
 
-			<Sider style={{ minHeight: '100vh', width: '20px' }}>
-				<div className="logo" />
+			<Sider style={{ minHeight: '100vh', width: '20px', marginTop: '50px' }}>
 				<Menu theme="dark" mode="inline" style={{ marginTop: '20px' }}>
 					<Menu.Item
 						key="1"
