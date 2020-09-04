@@ -9,11 +9,13 @@ const config = {
 		Authorization: localStorage.getItem('auth-token')
 	}
 };
-export async function add_new_sensor(lat, lon) {
+export async function add_new_sensor(name, description, lat, lon) {
 	console.log(lat, lon)
 	try {
 		const resp = await axios.post(
 			`${API_ACCESS}/register`, {
+				sensorName: name,
+				sensorDescription: description,
 				lat,
 				lon
 			},
@@ -39,10 +41,12 @@ export async function add_new_sensor(lat, lon) {
 	}
 }
 
-export async function add_new_light(lat, lon) {
+export async function add_new_light(name, description, lat, lon) {
 	try {
 		const resp = await axios.post(
 			`${API_ACCESS_LIGHTS}/register`, {
+				lightName: name,
+				lightDescription: description,
 				lat,
 				lon
 			},
