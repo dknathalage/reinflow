@@ -13,7 +13,7 @@
                 "Access-Control-Allow-Headers": "X-Requested-With, ContentType, Accept"
             },
             "src": "/.*",
-            "dest": "/vercel.js"
+            "dest": "/server.js"
         }
     ]
 }
