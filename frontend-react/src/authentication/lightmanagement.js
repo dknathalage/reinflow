@@ -26,7 +26,7 @@ export async function add_new_light(lat, lon) {
 				error: resp.error
 			};
 		}
-	} catch (error) {
+	} catch (error) { //comment
 		return {
 			status: false,
 			error
