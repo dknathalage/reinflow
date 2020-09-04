@@ -1,5 +1,5 @@
 import axios from 'axios';
-const API_URL_USR = `${process.env.BACKEND_URL}/api/user`
+const API_URL_USR = `http://reinflow-backend.vercel.app/api/user`
 export async function login_user(email, pass) {
     try {
         const resp = await axios.post(`${API_URL_USR}/login`, {
@@ -11,6 +11,7 @@ export async function login_user(email, pass) {
             const authToken = await resp.data.token;
             const response = await axios.get('https://ipapi.co/json/');
             const loc_data = response.data;
+            localStorage.setItem('auth-token', authToken)
             return {
                 token: authToken,
                 username: resp.data.username,
