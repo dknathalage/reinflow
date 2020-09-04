@@ -121,6 +121,20 @@ function Headers() {
 									<strong>Sensors</strong>
 								</NavLink>
 							</Menu.Item>
+
+							<Menu.Item
+								key="7"
+								icon={<VideoCameraAddOutlined style={{ fontSize: '25px' }} />}
+								style={{
+									marginBottom: '10px',
+									padding: '10px',
+									height: '60px'
+								}}
+							>
+								<NavLink to="/management-lights">
+									<strong>Lights</strong>
+								</NavLink>
+							</Menu.Item>
 						</SubMenu>
 					) : (
 						''
