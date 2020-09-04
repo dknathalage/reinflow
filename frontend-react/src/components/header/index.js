@@ -31,7 +31,7 @@ function Headers({ isLoading }) {
 
 	return user.auth_status === true ? (
 		<div>
-			<Header style={{ position: 'fixed', zIndex: 2, width: '100%', marginLeft: '-50px' }}>
+			<Header style={{ position: 'fixed', zIndex: 10, width: '100%', marginLeft: '-50px' }}>
 				<Menu theme="dark" mode="horizontal" defaultSelectedKeys={[ '1' ]}>
 					<Menu.Item
 						key="1"
