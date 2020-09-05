@@ -1,12 +1,14 @@
 import React from 'react';
 import { Layout, Menu, Breadcrumb, PageHeader } from 'antd';
-import { UserOutlined, AlertOutlined, CameraOutlined } from '@ant-design/icons';
+import { UserOutlined, AlertOutlined, CameraOutlined, ReadOutlined, ControlOutlined } from '@ant-design/icons';
 import ReinFlowFooter from '../../footer/footer';
 import Headers from '../../header';
 import { useState } from 'react';
 import UserManagement from './components/UserManagement';
 import Traffic_Stats from './components/traffic_stats';
 import Sensor_Stats from './components/sensor_stats';
+import SensorCommands from './components/sensor_stats/commands/index';
+import TrafficCommands from './components/traffic_stats/commands/index';
 import { useSelector } from 'react-redux';
 const { Header, Content } = Layout;
 const { SubMenu } = Menu;
@@ -22,10 +24,18 @@ function AdminDashboard() {
 				setviewPortItem(null);
 				break;
 			case '2':
-				setviewPort(<Traffic_Stats />);
+				setviewPort(<SensorCommands />);
 				setviewPortItem(null);
 				break;
 			case '3':
+				setviewPort(<Traffic_Stats />);
+				setviewPortItem(null);
+				break;
+			case '4':
+				setviewPort(<TrafficCommands />);
+				setviewPortItem(null);
+				break;
+			case '5':
 				setviewPort(<UserManagement />);
 				setviewPortItem(3);
 				break;
@@ -53,33 +63,52 @@ function AdminDashboard() {
 					<br />
 					<div className="site-layout-background" style={{ zIndex: 1, display: 'flex' }}>
 						<div>
-							<Menu style={{ width: 256 }} defaultSelectedKeys={[ '1' ]} defaultOpenKeys={[ 'sub1' ]}>
-								<Menu.Item
-									key="1"
-									icon={<CameraOutlined style={{ fontSize: '25px', color: 'orange' }} />}
-									onClick={handleClick}
-									style={{
-										marginBottom: '10px',
-										padding: '10px',
-										height: '60px'
-									}}
+							<Menu
+								style={{ width: 256 }}
+								defaultSelectedKeys={[ '1' ]}
+								defaultOpenKeys={[ 'sub2' ]}
+								mode="inline"
+							>
+								<SubMenu
+									key="sub2"
+									title={
+										<span>
+											<CameraOutlined style={{ fontSize: '25px', color: 'orange' }} />
+											<strong>Ground Sensors</strong>
+										</span>
+									}
 								>
-									<strong>Sensor Statistics</strong>
-								</Menu.Item>
-								<Menu.Item
-									key="2"
-									icon={<AlertOutlined style={{ fontSize: '25px', color: 'red' }} />}
-									onClick={handleClick}
-									style={{
-										marginBottom: '10px',
-										padding: '10px',
-										height: '60px'
-									}}
+									<Menu.Item key="1" onClick={handleClick}>
+										<ReadOutlined style={{ fontSize: '25px', color: 'purple' }} />
+										<strong>Statistics</strong>
+									</Menu.Item>
+									<Menu.Item key="2" onClick={handleClick}>
+										<ControlOutlined style={{ fontSize: '25px', color: 'blue' }} />
+										<strong>Commands</strong>
+									</Menu.Item>
+								</SubMenu>
+
+								<SubMenu
+									key="sub4"
+									title={
+										<span>
+											<AlertOutlined style={{ fontSize: '25px', color: 'red' }} />
+											<strong>Traffic Lights</strong>
+										</span>
+									}
 								>
-									<strong>Traffic Light Statistics</strong>
-								</Menu.Item>
+									<Menu.Item key="3" onClick={handleClick}>
+										<ReadOutlined style={{ fontSize: '25px', color: 'purple' }} />
+										<strong>Statistics</strong>
+									</Menu.Item>
+									<Menu.Item key="4" onClick={handleClick}>
+										<ControlOutlined style={{ fontSize: '25px', color: 'blue' }} />
+										<strong>Commands</strong>
+									</Menu.Item>
+								</SubMenu>
+
 								<Menu.Item
-									key="3"
+									key="5"
 									icon={<UserOutlined style={{ fontSize: '25px', color: 'green' }} />}
 									onClick={handleClick}
 									style={{
