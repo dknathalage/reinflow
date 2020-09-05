@@ -5,38 +5,28 @@ import { handleCLick } from '../index';
 
 export const columns = [
 	{
-		title: 'User Name',
-		dataIndex: 'name',
-		key: 'name',
-		render: (text) => <a>{text}</a>
+		title: <strong>ID</strong>,
+		dataIndex: '_id',
+		key: 'id'
 	},
 	{
-		title: 'Email Address',
+		title: <strong>UserName</strong>,
+		dataIndex: 'name',
+		key: 'name'
+	},
+	{
+		title: <strong>Email Address</strong>,
 		dataIndex: 'email',
 		key: 'email'
 	},
 	{
-		title: 'Tags',
-		key: 'tags',
-		dataIndex: 'tags',
-		render: (tags) => (
-			<React.Fragment>
-				{tags.map((tag) => {
-					let color = tag.length > 5 ? 'geekblue' : 'green';
-					if (tag === 'loser') {
-						color = 'volcano';
-					}
-					return (
-						<Tag color={color} key={tag}>
-							{tag.toUpperCase()}
-						</Tag>
-					);
-				})}
-			</React.Fragment>
-		)
+		title: <strong>Access Level</strong>,
+		dataIndex: 'accessLevel',
+		key: 'accessLevel'
 	},
+
 	{
-		title: 'Action',
+		title: <strong>Action</strong>,
 		key: 'action',
 		render: (text, record) => (
 			<Space size="middle">
@@ -45,8 +35,8 @@ export const columns = [
 					shape="round"
 					icon={<UserOutlined />}
 					size="large"
-					key={record.name}
-					id={record.name}
+					key={record._id}
+					id={record._id}
 					onClick={handleCLick}
 				>
 					Manage
@@ -56,8 +46,8 @@ export const columns = [
 					shape="round"
 					icon={<UserOutlined />}
 					size="large"
-					key={record.name}
-					id={record.name}
+					key={record._id}
+					id={record._id}
 					onClick={handleCLick}
 				>
 					User Profile

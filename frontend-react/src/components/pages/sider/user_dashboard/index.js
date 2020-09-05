@@ -30,7 +30,6 @@ const { Panel } = Collapse;
 function UserDashboard() {
 	const user = useSelector((state) => state.user);
 	const [ isLoading, setisLoading ] = useState(true);
-
 	useEffect(() => {
 		setTimeout(() => {
 			setisLoading(false);
