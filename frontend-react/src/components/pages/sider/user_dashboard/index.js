@@ -84,7 +84,10 @@ function UserDashboard() {
 		<React.Fragment>
 			<Headers />
 			<Layout className="site-layout" style={{ marginLeft: 200, minHeight: '100vh' }}>
-				<Header className="site-layout-background" style={{ padding: 0, position: 'fixed', width: '100%' }} />
+				<Header
+					className="site-layout-background"
+					style={{ padding: 0, position: 'fixed', width: '100%', background: 'black', zIndex: 10 }}
+				/>
 				<Content style={{ margin: '0 16px' }}>
 					<Breadcrumb style={{ margin: '16px 0' }}>
 						<Breadcrumb.Item>User</Breadcrumb.Item>

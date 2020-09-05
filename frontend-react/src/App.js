@@ -67,7 +67,9 @@ function App() {
 						style={{
 							padding: 0,
 							position: 'fixed',
-							width: '100%'
+							width: '100%',
+							background: 'black',
+							zIndex: 10
 						}}
 					/>
 					<Content
