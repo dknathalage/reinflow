@@ -7,9 +7,9 @@ module.exports = function (req, res, next, level) {
     try {
         const verified = jwt.verify(token, process.env.SECRET_TOKEN)
         req.user = verified
-        if (req.user.access > level) return res.status(403).send("unauthorised access")
+        if (req.user.access > level) return res.status(400).send("unauthorised access")
         next();
     } catch (err) {
-        res.status(403).send("invalid token")
+        res.status(400).send("invalid token")
     }
 }

@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const lightRoutes = require('./routes/lights');
 const sensorRoutes = require('./routes/sensors');
 const realtimeRoutes = require('./routes/realtime');
+const manageRoutes = require('./routes/manage')
+const infoRoutes = require('./routes/info')
 const cors = require('cors');
 
 // port that backend uses to listen to incoming api calls
@@ -38,6 +40,9 @@ app.use('/api/user', authRoute);
 app.use('/api/lights', lightRoutes);
 app.use('/api/sensors', sensorRoutes);
 app.use('/api/realtime', realtimeRoutes);
+app.use('/api/manage/update', manageRoutes)
+app.use('/api/info', infoRoutes)
+
 
 // endpoint for / route
 /**
