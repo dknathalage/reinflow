@@ -21,6 +21,8 @@ import './userdaash.css';
 import { List, Avatar } from 'antd';
 import { ArrowDownOutlined, ArrowUpOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
+import { openNotificationWithIcon } from '../../../notification';
+import { update_username } from '../../../../authentication/management';
 
 const { Header, Content } = Layout;
 const { Panel } = Collapse;
@@ -28,7 +30,6 @@ const { Panel } = Collapse;
 function UserDashboard() {
 	const user = useSelector((state) => state.user);
 	const [ isLoading, setisLoading ] = useState(true);
-
 	useEffect(() => {
 		setTimeout(() => {
 			setisLoading(false);
@@ -80,11 +81,25 @@ function UserDashboard() {
 		console.log(values);
 	};
 
+	const handle_changeusername = async (values) => {
+		//handle userbane
+		const new_username = values.name_change.name;
+		const resp = await update_username(new_username);
+		if (resp.status === true) {
+			openNotificationWithIcon('success', 'Platform Manager', 'Name Updated! Please re-log to see the change.');
+		} else {
+			openNotificationWithIcon('error', 'Platform Manager', `Something happened! ${resp.message}`);
+		}
+	};
+
 	return (
-		<Layout style={{ minHeight: '100vh' }}>
+		<React.Fragment>
 			<Headers />
-			<Layout className="site-layout">
-				<Header className="site-layout-background" style={{ padding: 0 }} />
+			<Layout className="site-layout" style={{ marginLeft: 200, minHeight: '100vh' }}>
+				<Header
+					className="site-layout-background"
+					style={{ padding: 0, position: 'fixed', width: '100%', background: 'black', zIndex: 10 }}
+				/>
 				<Content style={{ margin: '0 16px' }}>
 					<Breadcrumb style={{ margin: '16px 0' }}>
 						<Breadcrumb.Item>User</Breadcrumb.Item>
@@ -194,11 +209,11 @@ function UserDashboard() {
 											<Form
 												{...layout}
 												name="nest-messages"
-												onFinish={onFinish}
+												onFinish={handle_changeusername}
 												validateMessages={validateMessages}
 											>
 												<Form.Item
-													name={[ 'user', 'name' ]}
+													name={[ 'name_change', 'name' ]}
 													label="New Name"
 													rules={[ { required: true } ]}
 												>
@@ -206,7 +221,7 @@ function UserDashboard() {
 												</Form.Item>
 
 												<Form.Item
-													name={[ 'user', 'password' ]}
+													name={[ 'name_change', 'password' ]}
 													label="Password"
 													rules={[ { required: true } ]}
 												>
@@ -296,7 +311,7 @@ function UserDashboard() {
 				</Content>
 				<ReinFlowFooter />
 			</Layout>
-		</Layout>
+		</React.Fragment>
 	);
 }
 

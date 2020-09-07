@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const lightRoutes = require('./routes/lights');
 const sensorRoutes = require('./routes/sensors');
 const realtimeRoutes = require('./routes/realtime');
+<<<<<<< HEAD
 const verify = require('./functions/verifyToken');
 
 // endpoints by accesslevels
@@ -12,6 +13,10 @@ const accessL1 = require('./routes/accesslevel1');
 const accessL2 = require('./routes/accesslevel2');
 const accessL3 = require('./routes/accesslevel3');
 
+=======
+const manageRoutes = require('./routes/manage')
+const infoRoutes = require('./routes/info')
+>>>>>>> 426775a0aa56d49edd944b9d4c0b24e6d99021f1
 const cors = require('cors');
 
 // port that backend uses to listen to incoming api calls
@@ -22,7 +27,7 @@ const app = express();
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next();
 });
 
@@ -42,6 +47,7 @@ const verifyToken = require('./functions/verifyToken');
 
 // middlewares
 app.use(express.json());
+
 app.use('/api/user', authRoute); 
 
 // these routes will be moved to secure routes.
@@ -52,6 +58,9 @@ app.use('/api/realtime', realtimeRoutes); // deprecated
 app.use('/api/accesslevel1', (req, res, next) => verify(req, res, next, 1), accessL1); // Endpoints for toplevel users (Systems admin)
 app.use('/api/accesslevel2', (req, res, next) => verify(req, res, next, 2), accessL2); // Endpoints for midlevel users (System developers)
 app.use('/api/accesslevel3', (req, res, next) => verify(req, res, next, 3), accessL3); // Endpoints for lowlevel users (Users)
+
+app.use('/api/manage/update', manageRoutes)
+app.use('/api/info', infoRoutes)
 
 // endpoint for / route
 /**
