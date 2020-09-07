@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const lightRoutes = require('./routes/lights');
 const sensorRoutes = require('./routes/sensors');
 const realtimeRoutes = require('./routes/realtime');
-<<<<<<< HEAD
 const verify = require('./functions/verifyToken');
 
 // endpoints by accesslevels
@@ -13,10 +12,8 @@ const accessL1 = require('./routes/accesslevel1');
 const accessL2 = require('./routes/accesslevel2');
 const accessL3 = require('./routes/accesslevel3');
 
-=======
 const manageRoutes = require('./routes/manage')
 const infoRoutes = require('./routes/info')
->>>>>>> 426775a0aa56d49edd944b9d4c0b24e6d99021f1
 const cors = require('cors');
 
 // port that backend uses to listen to incoming api calls
