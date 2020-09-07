@@ -1,4 +1,4 @@
-export let API_URL = 'https://reinflow-backend.vercel.ap'
+export let API_URL = 'https://reinflow-backend.vercel.app'
 export const config = {
     headers: {
         Authorization: localStorage.getItem('auth-token')
