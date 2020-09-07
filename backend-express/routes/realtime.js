@@ -10,22 +10,15 @@ router.get('/sensorbuffer', (res, req) => {
 })
 
 router.get('/lightbuffer', (res, req) => {
-    req.json(LightBuffer)
+    req.status(200).json(LightBuffer)
 })
 
-// cron.schedule('*/15 * * * * *', ()=>{
-//     SensorBuffer = {};
-//     LightBuffer = {};
-//     console.log("clearing buffers")
-// })
-
-cron.schedule('*/1 * * * * *', ()=>{
-    /** Append to Arrays */
+cron.schedule('*/1 * * * * *', () => {
     axios.get(`${process.env.SOCKET_URL}/devicedata/lights`)
-    .then(res=>{
-        LightBuffer = res.data
-        console.log(LightBuffer);
-    }).catch(err=>{console.log(err)})
+        .then(res => {
+            LightBuffer = res.data
+            console.log(LightBuffer);
+        }).catch(err => { console.log(err) })
 })
 
 module.exports = router;
