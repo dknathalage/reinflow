@@ -8,15 +8,16 @@ router.post(
 	(req, res, next) => verify(req, res, next, 3),
 	async (req, res) => {
 		const { error } = registerValidation(req.body);
-		if (error)
-			return res.status(400).json({
+		if (error) {
+			return res.status(404).json({
 				status: false,
 				error: error.details[0].message
 			});
-
+		}
 		const pointExists = await Sensor.findOne({
-			location: [ req.body.lon, req.body.lat ]
+			location: [req.body.lon, req.body.lat]
 		});
+
 		if (pointExists)
 			return res.status(400).json({
 				status: false,
@@ -24,9 +25,11 @@ router.post(
 			});
 
 		const sensor = new Sensor({
+			sensor_name: req.body.sensorName,
+			sensor_description: req.body.sensorDescription,
 			location: {
 				type: 'Point',
-				coordinates: [ req.body.lon, req.body.lat ]
+				coordinates: [req.body.lon, req.body.lat]
 			}
 		});
 		try {
