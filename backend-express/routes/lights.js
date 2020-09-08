@@ -1,7 +1,9 @@
 const router = require('express').Router();
 const verify = require('../functions/verifyToken')
 const Light = require('../model/light')
-const { registerValidation } = require('../functions/lightValidation')
+const {
+  registerValidation
+} = require('../functions/lightValidation')
 
 /**
  * Deprecation warning
@@ -14,14 +16,18 @@ const { registerValidation } = require('../functions/lightValidation')
 router.post('/register',
   (req, res, next) => verify(req, res, next, 3),
   async (req, res) => {
-    const { error } = registerValidation(req.body)
+    const {
+      error
+    } = registerValidation(req.body)
     if (error) {
       return res.status(404).json({
         status: false,
         error: error.details[0].message
       });
     }
-    const pointExists = await Light.findOne({ location: [req.body.lon, req.body.lat] })
+    const pointExists = await Light.findOne({
+      location: [req.body.lon, req.body.lat]
+    })
     if (pointExists) return res.status(400).json({
       status: false,
       error: 'Point already exists'
@@ -30,9 +36,10 @@ router.post('/register',
     const light = new Light({
       light_name: req.body.lightName,
       light_description: req.body.lightDescription,
+      lon: req.body.lon,
+      lat: req.body.lat,
       location: {
         type: 'Point',
-        coordinates: [req.body.lon, req.body.lat]
       }
     })
     try {
@@ -49,7 +56,6 @@ router.post('/register',
       });
     }
   })
-
 // This endpoint has been moved to accesslevel3/lights.js
 router.get('/',
   (req, res, next) => verify(req, res, next, 3),
