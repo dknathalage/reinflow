@@ -3,6 +3,7 @@ const verify = require('../functions/verifyToken')
 const users = require('../model/user')
 const jwt = require('jsonwebtoken');
 
+
 /**
  * This route is deprecated
  * 
@@ -20,6 +21,7 @@ const jwt = require('jsonwebtoken');
  /** DEPRECATED */
 ////// THIS ENDPOINT CAN BE FOUND IN accesslevel1/username
 ////// TOPLEVEL USERS CAN ACCESS THESE LOWLEVEL ENPOINTS TOO.
+
 router.post('/username', (req, res, next) => verify(req, res, next, 3), async (req, res) => {
     try {
         console.log("[TRIGGER]" + "NAME CHANGE")
@@ -58,9 +60,9 @@ router.post('/username', (req, res, next) => verify(req, res, next, 3), async (r
     }
 })
 
-
 /** DEPRECATED */
 /// THIS ENDPOINT CAN ONLY BE ACCESSED BY THE ADMIN USERS (LEVEL1) AND CAN BE FOUND IN RESPECTIVE ENDPOINT DIRECTORIES
+
 router.post('/users', (req, res, next) => verify(req, res, next, 3), async (req, res) => {
     try {
         const allUsers = await users.find({});
