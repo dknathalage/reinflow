@@ -24,10 +24,10 @@ const app = express();
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next();
 });
-
 
 // serving static docs
 app.use(express.static(`${__dirname}/public/generated-docs`));
@@ -45,7 +45,7 @@ const verifyToken = require('./functions/verifyToken');
 // middlewares
 app.use(express.json());
 
-app.use('/api/user', authRoute); 
+app.use('/api/user', authRoute);
 
 // these routes will be moved to secure routes.
 app.use('/api/lights', lightRoutes); // deprecated
