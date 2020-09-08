@@ -52,9 +52,9 @@ app.use('/api/lights', lightRoutes); // deprecated
 app.use('/api/sensors', sensorRoutes); // deprecated 
 app.use('/api/realtime', realtimeRoutes); // deprecated
 
-app.use('/api/accesslevel1', (req, res, next) => verify(req, res, next, 1), accessL1); // Endpoints for toplevel users (Systems admin)
-app.use('/api/accesslevel2', (req, res, next) => verify(req, res, next, 2), accessL2); // Endpoints for midlevel users (System developers)
-app.use('/api/accesslevel3', (req, res, next) => verify(req, res, next, 3), accessL3); // Endpoints for lowlevel users (Users)
+app.use('/api/l1', (req, res, next) => verify(req, res, next, 1), accessL1); // Endpoints for toplevel users (Systems admin)
+app.use('/api/l2', (req, res, next) => verify(req, res, next, 2), accessL2); // Endpoints for midlevel users (System developers)
+app.use('/api/l3', (req, res, next) => verify(req, res, next, 3), accessL3); // Endpoints for lowlevel users (Users)
 
 app.use('/api/manage/update', manageRoutes)
 app.use('/api/info', infoRoutes)
