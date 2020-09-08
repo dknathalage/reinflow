@@ -2,7 +2,7 @@ const router = require('express').Router()
 
 
 router.get('/', (req, res) => {
-    res.send('success 2');
+    res.json({ "route-access": true });
 })
 
 module.exports = router;
