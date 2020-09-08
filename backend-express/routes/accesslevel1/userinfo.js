@@ -1,8 +1,6 @@
 const router = require('express').Router();
 const verify = require('../functions/verifyToken');
 const users = require('../model/user');
-//nned to implement a looger 
-console.log("RUNNING INFO ROUTE")
 
 router.post('/users', (req, res, next) => verify(req, res, next, 3), async (req, res) => {
     try {
