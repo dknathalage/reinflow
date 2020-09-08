@@ -37,7 +37,12 @@ function SensorManagement() {
 			id: 0,
 			status: 'finish'
 		});
-		const resp = await add_new_sensor(values.sensor.lot, values.sensor.lon);
+		const resp = await add_new_sensor(
+			values.sensor.name,
+			values.sensor.description,
+			values.sensor.lat,
+			values.sensor.lon
+		);
 		if (resp.status === true) {
 			setstatus({
 				id: 1,
@@ -62,11 +67,14 @@ function SensorManagement() {
 	};
 
 	return (
-		<Layout style={{ minHeight: '100vh' }}>
+		<React.Fragment>
 			<Headers />
-			<Layout className="site-layout">
-				<Header className="site-layout-background" style={{ padding: 0 }} />
-				<Content style={{ margin: '0 16px' }}>
+			<Layout className="site-layout" style={{ marginLeft: 200, minHeight: '100vh' }}>
+				<Header
+					className="site-layout-background"
+					style={{ padding: 0, position: 'fixed', width: '100%', background: 'black', zIndex: 10 }}
+				/>
+				<Content style={{ margin: '29px 16px 0', overflow: 'initial' }}>
 					<Breadcrumb style={{ margin: '16px 0' }}>
 						<Breadcrumb.Item>Management</Breadcrumb.Item>
 						<Breadcrumb.Item>Sensors</Breadcrumb.Item>
@@ -91,7 +99,7 @@ function SensorManagement() {
 						</Steps>
 					</div>
 
-					<div className="site-layout-background sensor__dash" style={{ padding: 24, minHeight: 360 }}>
+					<div className="site-layout-background sensor__dash" style={{ padding: 24 }}>
 						<h1>Add a sensor to the platform</h1>
 						<div style={{ display: 'flex' }}>
 							<div style={{ flex: '0.5' }}>
@@ -172,7 +180,7 @@ function SensorManagement() {
 				</Content>
 				<ReinFlowFooter />
 			</Layout>
-		</Layout>
+		</React.Fragment>
 	);
 }
 
