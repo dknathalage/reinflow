@@ -20,6 +20,39 @@ router.post('/users', (req, res, next) => verify(req, res, next, 3), async (req,
     }
 })
 
+router.post('/sensors', (req, res, next) => verify(req, res, next, 3), async (req, res) => {
+    try {
+        const sensors = await Sensor.find({});
+        res.status(200).json({
+            status: true,
+            sensors: sensors
+        })
+    } catch (error) {
+        console.log(error)
+        res.send(404).json({
+            status: false,
+            error
+        })
+    }
+
+});
+
+router.post('/lights', (req, res, next) => verify(req, res, next, 3), async (req, res) => {
+    try {
+        const lights = await Light.find({})
+        res.status(200).json({
+            status: true,
+            lights
+        })
+    } catch (err) {
+        console.log(err)
+        res.status(404).json({
+            status: false,
+            error: err
+        })
+    }
+})
+
 
 
 module.exports = router;
