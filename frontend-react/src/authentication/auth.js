@@ -1,5 +1,7 @@
 import axios from 'axios';
-import {API_URL} from './urls'
+import {
+    API_URL
+} from './urls'
 const API_URL_USR = `${API_URL}/api/user`
 export async function login_user(email, pass) {
     try {

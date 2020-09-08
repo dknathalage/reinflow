@@ -3,6 +3,14 @@ const verify = require('../functions/verifyToken')
 const Light = require('../model/light')
 const { registerValidation } = require('../functions/lightValidation')
 
+/**
+ * Deprecation warning
+ * 
+ * Endpoints in these files have been moved to respective accesslevel folders
+ * use accesslevel endpoints from the given folders for more secure routes
+ */
+
+// This endpoint has been moved to accesslevel2/managelights.js file 
 router.post('/register',
   (req, res, next) => verify(req, res, next, 3),
   async (req, res) => {
@@ -42,6 +50,7 @@ router.post('/register',
     }
   })
 
+// This endpoint has been moved to accesslevel3/lights.js
 router.get('/',
   (req, res, next) => verify(req, res, next, 3),
   async (req, res) => {

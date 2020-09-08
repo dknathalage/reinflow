@@ -4,7 +4,23 @@ const users = require('../model/user')
 const jwt = require('jsonwebtoken');
 
 
+/**
+ * This route is deprecated
+ * 
+ * 
+ * Change frontend requests pointing to this route to 
+ * 'accesslevel1/' route
+ * 
+ * all the Toplevel administration routes are handled in
+ * the respective subdir
+ * 
+ * 
+ * refer accesslevel1/index.js for more details.
+ */
 
+ /** DEPRECATED */
+////// THIS ENDPOINT CAN BE FOUND IN accesslevel1/username
+////// TOPLEVEL USERS CAN ACCESS THESE LOWLEVEL ENPOINTS TOO.
 
 router.post('/username', (req, res, next) => verify(req, res, next, 3), async (req, res) => {
     try {
@@ -43,6 +59,9 @@ router.post('/username', (req, res, next) => verify(req, res, next, 3), async (r
 
     }
 })
+
+/** DEPRECATED */
+/// THIS ENDPOINT CAN ONLY BE ACCESSED BY THE ADMIN USERS (LEVEL1) AND CAN BE FOUND IN RESPECTIVE ENDPOINT DIRECTORIES
 
 router.post('/users', (req, res, next) => verify(req, res, next, 3), async (req, res) => {
     try {
