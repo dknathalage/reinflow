@@ -1,6 +1,9 @@
 const router = require('express').Router();
 const verify = require('../functions/verifyToken');
 const users = require('../model/user');
+const Sensor = require('../model/sensor');
+const Light = require('../model/light');
+
 //nned to implement a looger 
 console.log("RUNNING INFO ROUTE")
 
