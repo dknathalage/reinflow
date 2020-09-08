@@ -16,6 +16,7 @@ import { message, Spin, notification, Layout, Breadcrumb } from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
 import Headers from './components/header';
 import ReinFlowFooter from './components/footer/footer';
+import Management from './components/pages/management';
 const { Header, Content } = Layout;
 
 function App() {
@@ -122,8 +123,7 @@ function App() {
 					<Route path="/login" exact component={UserLogin} />
 					<Route path="/register" exact component={UserRegisteration} />
 					<ProtectedRoute path="/user-dashboard" exact component={UserDashboard} />
-					<ProtectedRoute path="/management-sensors" exact component={SensorManagement} />
-					<ProtectedRoute path="/management-lights" exact component={LightManagement} />
+					<ProtectedRoute path="/management" exact component={Management} />
 					<ProtectedRoute path="/admin-dashboard" exact component={AdminDashboard} />
 					<Route component={Error} />
 				</Switch>
