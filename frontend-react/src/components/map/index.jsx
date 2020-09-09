@@ -2,7 +2,7 @@ import React from 'react';
 import { Map, TileLayer, Marker } from 'react-leaflet';
 import TrafficLightMarker from './components/traffic-light';
 import axios from 'axios';
-import { API_URL } from '../../authentication/urls';
+import { API_URL, config } from '../../authentication/urls';
 
 class ReinFlowMap extends React.Component {
 	/**
@@ -17,7 +17,8 @@ class ReinFlowMap extends React.Component {
 		super();
 		this.state = { value: 0, lat: 0, lon: 0 };
 		setInterval(() => {
-			axios.get(`${API_URL}/api/realtime/lightbuffer`).then((res) => {
+			let head = config;
+			axios.get(`${API_URL}/api/l3/realtime/lightbuffer`, head).then((res) => {
 				this.setState({ lat: res.data.lat, lon: res.data.lon, value: res.data.status });
 			});
 		}, 5000);
@@ -27,11 +28,11 @@ class ReinFlowMap extends React.Component {
 		clearTimeout(this.intervalID);
 	}
 
-	componentDidMount = () => {};
+	componentDidMount = () => { };
 
 	render() {
 		return (
-			<Map center={[ -37.84766, 145.11486 ]} zoom={16} style={{ zIndex: 1 }}>
+			<Map center={[-37.84766, 145.11486]} zoom={16} style={{ zIndex: 1 }}>
 				<TileLayer
 					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 					attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
