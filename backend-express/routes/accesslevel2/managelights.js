@@ -4,7 +4,6 @@ const Light = require('../../model/light')
 const { registerValidation } = require('../../functions/lightValidation')
 
 router.post('/register',
-  (req, res, next) => verify(req, res, next, 3),
   async (req, res) => {
     const { error } = registerValidation(req.body)
     if (error) {

@@ -1,13 +1,20 @@
 const router = require('express').Router();
-const Light = require('../../model/light')
+const Sensor = require('../../model/light')
 
 router.get('/',
     async (req, res) => {
         try {
-            const lights = await Light.find({})
-            return res.status(200).send(lights)
-        } catch (err) {
-            return res.status(400).send(err)
+            const sensors = await Sensor.find({});
+            res.status(200).json({
+                status: true,
+                sensors: sensors
+            })
+        } catch (error) {
+            console.log(error)
+            res.send(404).json({
+                status: false,
+                error
+            })
         }
     }
 )
