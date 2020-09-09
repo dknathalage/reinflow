@@ -8,18 +8,28 @@ import UserLogin from './components/pages/login';
 import UserRegisteration from './components/pages/register';
 import UserDashboard from './components/pages/sider/user_dashboard';
 import SensorManagement from './components/pages/management/sensors';
+import LightManagement from './components/pages/management/lights';
+import AdminDashboard from './components/pages/dashboard';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { message, Spin, notification } from 'antd';
+import { message, Spin, notification, Layout, Breadcrumb } from 'antd';
 import { SmileOutlined } from '@ant-design/icons';
 import Headers from './components/header';
+import ReinFlowFooter from './components/footer/footer';
+const { Header, Content } = Layout;
 
 function App() {
 	const openNotification = () => {
 		notification.open({
 			message: 'Loading you in',
 			description: 'Fetching your data!',
-			icon: <SmileOutlined style={{ color: '#108ee9' }} />
+			icon: (
+				<SmileOutlined
+					style={{
+						color: '#108ee9'
+					}}
+				/>
+			)
 		});
 	};
 
@@ -44,10 +54,63 @@ function App() {
 				}}
 			/>
 		) : (
-			<div>
+			<React.Fragment>
 				<Headers />
-				{openNotification()}
-			</div>
+				<Layout
+					className="site-layout"
+					style={{
+						marginLeft: 200,
+						minHeight: '100vh'
+					}}
+				>
+					<Header
+						className="site-layout-background"
+						style={{
+							padding: 0,
+							position: 'fixed',
+							width: '100%',
+							background: 'black',
+							zIndex: 10
+						}}
+					/>
+					<Content
+						style={{
+							margin: '29px 16px 0',
+							overflow: 'initial'
+						}}
+					>
+						<Breadcrumb
+							style={{
+								margin: '16px 0'
+							}}
+						>
+							<Breadcrumb.Item> Home </Breadcrumb.Item> <Breadcrumb.Item> Overview </Breadcrumb.Item>
+						</Breadcrumb>
+						<div
+							className="site-layout-background"
+							style={{
+								padding: 24,
+								textAlign: 'center'
+							}}
+						>
+							<div
+								className="site-layout-background"
+								style={{
+									padding: 24,
+									height: 360,
+									display: 'flex',
+									justifyContent: 'center',
+									alignItems: 'center'
+								}}
+							>
+								<Spin size="large" />
+							</div>
+							{openNotification()}
+						</div>
+					</Content>
+					<ReinFlowFooter />
+				</Layout>
+			</React.Fragment>
 		);
 	};
 	return (
@@ -60,6 +123,8 @@ function App() {
 					<Route path="/register" exact component={UserRegisteration} />
 					<ProtectedRoute path="/user-dashboard" exact component={UserDashboard} />
 					<ProtectedRoute path="/management-sensors" exact component={SensorManagement} />
+					<ProtectedRoute path="/management-lights" exact component={LightManagement} />
+					<ProtectedRoute path="/admin-dashboard" exact component={AdminDashboard} />
 					<Route component={Error} />
 				</Switch>
 			</div>

@@ -7,11 +7,12 @@ var router = require('express').Router()
 
 /** Endpoint that sends light data to backend */
 
-router.get('/lights/:lightId', (req, res) => {
+router.get('/lights', (req, res) => {
+    console.log("called")
     res.json({
-        lat: -37.84766,
-        lon: 145.11486,
-        status: Math.floor(Math.random() * Math.floor(max))
+        lat: -37.84975,
+        lon: 145.10907,
+        status: Math.floor(Math.random() * Math.floor(3))
     })
 });
 

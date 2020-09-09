@@ -66,9 +66,10 @@ router.post('/login', async (req, res) => {
         access: user.accessLevel
     }, process.env.SECRET_TOKEN)
     return res.header('auth_token', token).status(200).json({
-        token:token,
+        token: token,
         username: user.name,
-        access_level: user.accessLevel
+        access_level: user.accessLevel,
+        id: user._id
     })
 })
 
