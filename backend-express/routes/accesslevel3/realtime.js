@@ -19,7 +19,6 @@ cron.schedule('*/1 * * * * *', () => {
     axios.get(`${process.env.SOCKET_URL}/devicedata/lights`)
         .then(res => {
             LightBuffer = res.data
-            console.log(LightBuffer);
         }).catch(err => { console.log(err) })
 })
 
