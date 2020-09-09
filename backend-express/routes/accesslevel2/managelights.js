@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const verify = require('../functions/verifyToken')
-const Light = require('../model/light')
-const { registerValidation } = require('../functions/lightValidation')
+const verify = require('../../functions/verifyToken')
+const Light = require('../../model/light')
+const { registerValidation } = require('../../functions/lightValidation')
 
 router.post('/register',
   (req, res, next) => verify(req, res, next, 3),
