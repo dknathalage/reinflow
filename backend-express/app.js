@@ -22,12 +22,16 @@ const PORT = process.env.PORT || 5000;
 // starting point
 const app = express();
 
-app.use((req, res, next) => {
+app.use(async (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
-    next();
+    res.header("Access-Control-Allow-Methods", "GET, HEAD, POST, PATCH, PUT, DELETE, OPTIONS");
+    res.header("Access-Control-Allow-Headers", "Authorization, Origin, X-Requested-With, Content-Type, Accept");
+    if ('OPTIONS' == req.method) {
+        res.sendStatus(200);
+    } else {
+        await next();
+    }
 });
-
 
 // serving static docs
 app.use(express.static(`${__dirname}/public/generated-docs`));
@@ -45,19 +49,22 @@ const verifyToken = require('./functions/verifyToken');
 // middlewares
 app.use(express.json());
 
-app.use('/api/user', authRoute); 
+app.use('/api/user', authRoute);
 
 // these routes will be moved to secure routes.
-app.use('/api/lights', lightRoutes); // deprecated
-app.use('/api/sensors', sensorRoutes); // deprecated 
-app.use('/api/realtime', realtimeRoutes); // deprecated
-
+// app.use('/api/lights', lightRoutes); // deprecated
+// app.use('/api/sensors', sensorRoutes); // deprecated 
+// app.use('/api/realtime', realtimeRoutes); // deprecated
 app.use('/api/l1', (req, res, next) => verify(req, res, next, 1), accessL1); // Endpoints for toplevel users (Systems admin)
 app.use('/api/l2', (req, res, next) => verify(req, res, next, 2), accessL2); // Endpoints for midlevel users (System developers)
 app.use('/api/l3', (req, res, next) => verify(req, res, next, 3), accessL3); // Endpoints for lowlevel users (Users)
 
-app.use('/api/manage/update', manageRoutes)
-app.use('/api/info', infoRoutes)
+// app.use('/api/manage/update', manageRoutes)
+
+/**
+ * Enpoints of this router have been changed. refere the original file for more details.
+ */
+//app.use('/api/info', infoRoutes)
 
 // endpoint for / route
 /**
