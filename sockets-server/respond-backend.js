@@ -1,18 +1,23 @@
-const {
-    getSensor1
-} = require('./server.js');
+require('dotenv').config()
+const { getSensor1 } = require('./server.js');
+const { default: Axios } = require('axios');
 
 var router = require('express').Router()
 
 
 /** Endpoint that sends light data to backend */
 
-router.get('/lights', (req, res) => {
-    console.log("called")
+// This routes "fetches" data from lights and send to backend.
+router.get('/lights', async (req, res) => {
+    console.log("Fetching...")
+    const lights = await Axios.get(`${process.env.BACKEND_URL}/api/l3/lights`, { headers: { Authorization: req.header('Authorization') } })
+    console.log("Fetch complete...")
+    var lightData = lights.data.sensors
+    for (var i = 0; i < lightData.length; i++) {
+        lightData[i] = { ...lightData[i], status: Math.floor(Math.random() * Math.floor(3)) }
+    }
     res.json({
-        lat: -37.84975,
-        lon: 145.10907,
-        status: Math.floor(Math.random() * Math.floor(3))
+        data: lightData
     })
 });
 
