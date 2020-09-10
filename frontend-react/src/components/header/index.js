@@ -9,7 +9,8 @@ import {
 	CoffeeOutlined,
 	ExportOutlined,
 	VideoCameraAddOutlined,
-	BulbOutlined
+	BulbOutlined,
+	ApiOutlined
 } from '@ant-design/icons';
 import { NavLink } from 'react-router-dom';
 import { logout } from '../../redux/actions/user';
@@ -86,7 +87,7 @@ function Headers({ isLoading }) {
 							<strong>User Dashboard</strong>
 						</NavLink>
 					</Menu.Item>
-					{user.accesslevel === 3 ? (
+					{user.accesslevel === 1 ? (
 						<Menu.Item
 							key="5"
 							icon={<LockOutlined style={{ fontSize: '25px' }} />}
@@ -103,10 +104,10 @@ function Headers({ isLoading }) {
 					) : (
 						''
 					)}
-					{user.accesslevel === 3 ? (
+					{user.accesslevel <= 2 ? (
 						<SubMenu
 							key="sub1"
-							icon={<UserOutlined style={{ fontSize: '25px' }} />}
+							icon={<ApiOutlined style={{ fontSize: '25px' }} />}
 							title={<strong>Management</strong>}
 						>
 							<Menu.Item
@@ -118,22 +119,8 @@ function Headers({ isLoading }) {
 									height: '60px'
 								}}
 							>
-								<NavLink to="/management-sensors">
-									<strong>Sensors</strong>
-								</NavLink>
-							</Menu.Item>
-
-							<Menu.Item
-								key="7"
-								icon={<BulbOutlined style={{ fontSize: '25px' }} />}
-								style={{
-									marginBottom: '10px',
-									padding: '10px',
-									height: '60px'
-								}}
-							>
-								<NavLink to="/management-lights">
-									<strong>Lights</strong>
+								<NavLink to="/management">
+									<strong>Manage</strong>
 								</NavLink>
 							</Menu.Item>
 						</SubMenu>

@@ -1,15 +1,20 @@
 const router = require('express').Router();
-const verify = require('../functions/verifyToken')
-const Light = require('../model/light')
+const Ligth = require('../../model/light')
 
 router.get('/',
-    (req, res, next) => verify(req, res, next, 3),
     async (req, res) => {
         try {
-            const lights = await Light.find({})
-            return res.status(200).send(lights)
-        } catch (err) {
-            return res.status(400).send(err)
+            const sensors = await Ligth.find({});
+            res.status(200).json({
+                status: true,
+                sensors: sensors
+            })
+        } catch (error) {
+            console.log(error)
+            res.send(404).json({
+                status: false,
+                error
+            })
         }
     }
 )

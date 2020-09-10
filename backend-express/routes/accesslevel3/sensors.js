@@ -1,7 +1,5 @@
 const router = require('express').Router();
-const verify = require('../functions/verifyToken');
-const Sensor = require('../model/sensor');
-const { registerValidation } = require('../functions/sensorValidation');
+const Sensor = require('../../model/sensor');
 
 router.get('/',
     async (req, res) => {

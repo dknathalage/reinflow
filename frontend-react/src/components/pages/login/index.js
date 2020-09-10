@@ -10,6 +10,8 @@ import { openNotificationWithIcon } from '../../notification';
 import { useDispatch } from 'react-redux';
 import { login } from '../../../redux/actions/user';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+
 
 const { Step } = Steps;
 const { Header, Content } = Layout;
@@ -17,7 +19,7 @@ const { Header, Content } = Layout;
 function UserLogin() {
 	const history = useHistory();
 	const dispatch = useDispatch();
-	const [ statusUpdate, setstatusUpdate ] = useState([
+	const [statusUpdate, setstatusUpdate] = useState([
 		{
 			register: 'process',
 			auth: 'wait',
@@ -35,7 +37,6 @@ function UserLogin() {
 
 	const onFinish = async (values) => {
 		const data = await login_user(values.email, values.password);
-		console.log(data);
 		if (!data.token) {
 			openNotificationWithIcon('warning', 'Invalid Details', 'Please check your email or password');
 		} else {
@@ -119,7 +120,7 @@ function UserLogin() {
 								<Form.Item
 									label="Password"
 									name="password"
-									rules={[ { required: true, message: 'Please input your password!' } ]}
+									rules={[{ required: true, message: 'Please input your password!' }]}
 								>
 									<Input.Password />
 								</Form.Item>
