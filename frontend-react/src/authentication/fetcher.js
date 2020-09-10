@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
 	API_GET_USERS_URL,
 	API_GET_SENSORS,
-	API_GET_TRAFFIC_LIGHTS
+	API_GET_TRAFFIC_LIGHTS,
+	API_GET_SPEC_USER
 } from './urls';
 
 export async function get_registered_users() {
@@ -72,6 +73,29 @@ export async function get_registered_trafficlights() {
 		return {
 			status: false,
 			message: error.message
+		}
+	}
+}
+
+export async function get_spec_user(userId) {
+	try {
+		const resp = await axios.post(`${API_GET_SPEC_USER}/${userId}`, null);
+		const data = await resp.data;
+		if (data.status === true) {
+			return {
+				status: true,
+				user: data.user
+			}
+		} else {
+			return {
+				status: false,
+				message: data.message
+			}
+		}
+	} catch (error) {
+		return {
+			status: false,
+			error: error.message
 		}
 	}
 }
