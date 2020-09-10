@@ -35,12 +35,12 @@ function ManageLights() {
 		},
 		{
 			title: 'Name',
-			dataIndex: 'light_name',
+			dataIndex: 'SITE_NO',
 			key: '_id'
 		},
 		{
 			title: 'Description',
-			dataIndex: 'light_description',
+			dataIndex: 'SITE_NAME',
 			key: '_id'
 		},
 		{
@@ -70,7 +70,7 @@ function ManageLights() {
 	return (
 		<React.Fragment>
 			<h1>Manage Lights</h1>
-			<Table columns={columns} dataSource={lightData} loading={isloading} bordered />
+			<Table columns={columns} dataSource={lightData} loading={isloading} bordered pagination={{ pageSize: 5 }} />
 		</React.Fragment>
 	);
 }
