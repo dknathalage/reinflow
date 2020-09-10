@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const Sensor = require('../../model/light')
+const Ligth = require('../../model/light')
 
 router.get('/',
     async (req, res) => {
         try {
-            const sensors = await Sensor.find({});
+            const sensors = await Ligth.find({});
             res.status(200).json({
                 status: true,
                 sensors: sensors
