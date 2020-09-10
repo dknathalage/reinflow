@@ -17,7 +17,20 @@ import { SmileOutlined } from '@ant-design/icons';
 import Headers from './components/header';
 import ReinFlowFooter from './components/footer/footer';
 import Management from './components/pages/management';
+import Axios from 'axios';
+import { config } from './authentication/urls';
 const { Header, Content } = Layout;
+
+Axios.interceptors.request.use(
+	config => {
+		config.headers.Authorization = `${localStorage.getItem('auth-token')}`
+		return config;
+	},
+	error => {
+		return Promise.reject(error);
+	}
+)
+
 
 function App() {
 	const openNotification = () => {
@@ -36,8 +49,8 @@ function App() {
 
 	const ProtectedRoute = ({ component: Component, ...rest }) => {
 		const user = useSelector((state) => state.user);
-		const [ userStatus, setuserStatus ] = useState(user.auth_status);
-		const [ isLoading, setisLoading ] = useState(true);
+		const [userStatus, setuserStatus] = useState(user.auth_status);
+		const [isLoading, setisLoading] = useState(true);
 
 		setTimeout(() => {
 			setisLoading(false);
@@ -55,64 +68,64 @@ function App() {
 				}}
 			/>
 		) : (
-			<React.Fragment>
-				<Headers />
-				<Layout
-					className="site-layout"
-					style={{
-						marginLeft: 200,
-						minHeight: '100vh'
-					}}
-				>
-					<Header
-						className="site-layout-background"
+				<React.Fragment>
+					<Headers />
+					<Layout
+						className="site-layout"
 						style={{
-							padding: 0,
-							position: 'fixed',
-							width: '100%',
-							background: 'black',
-							zIndex: 10
-						}}
-					/>
-					<Content
-						style={{
-							margin: '29px 16px 0',
-							overflow: 'initial'
+							marginLeft: 200,
+							minHeight: '100vh'
 						}}
 					>
-						<Breadcrumb
-							style={{
-								margin: '16px 0'
-							}}
-						>
-							<Breadcrumb.Item> Home </Breadcrumb.Item> <Breadcrumb.Item> Overview </Breadcrumb.Item>
-						</Breadcrumb>
-						<div
+						<Header
 							className="site-layout-background"
 							style={{
-								padding: 24,
-								textAlign: 'center'
+								padding: 0,
+								position: 'fixed',
+								width: '100%',
+								background: 'black',
+								zIndex: 10
+							}}
+						/>
+						<Content
+							style={{
+								margin: '29px 16px 0',
+								overflow: 'initial'
 							}}
 						>
+							<Breadcrumb
+								style={{
+									margin: '16px 0'
+								}}
+							>
+								<Breadcrumb.Item> Home </Breadcrumb.Item> <Breadcrumb.Item> Overview </Breadcrumb.Item>
+							</Breadcrumb>
 							<div
 								className="site-layout-background"
 								style={{
 									padding: 24,
-									height: 360,
-									display: 'flex',
-									justifyContent: 'center',
-									alignItems: 'center'
+									textAlign: 'center'
 								}}
 							>
-								<Spin size="large" />
+								<div
+									className="site-layout-background"
+									style={{
+										padding: 24,
+										height: 360,
+										display: 'flex',
+										justifyContent: 'center',
+										alignItems: 'center'
+									}}
+								>
+									<Spin size="large" />
+								</div>
+								{openNotification()}
 							</div>
-							{openNotification()}
-						</div>
-					</Content>
-					<ReinFlowFooter />
-				</Layout>
-			</React.Fragment>
-		);
+						</Content>
+						<ReinFlowFooter />
+					</Layout>
+				</React.Fragment>
+			);
 	};
 	return (
 		<Router>
