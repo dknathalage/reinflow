@@ -1,14 +1,13 @@
 import axios from 'axios';
 import {
 	API_GET_USERS_URL,
-	config,
 	API_GET_SENSORS,
 	API_GET_TRAFFIC_LIGHTS
 } from './urls';
 
 export async function get_registered_users() {
 	try {
-		const resp = await axios.post(API_GET_USERS_URL, null, config);
+		const resp = await axios.post(API_GET_USERS_URL, null);
 		const data = await resp.data;
 		if (data.status === true) {
 			const systemUsers = data.users;
@@ -30,7 +29,7 @@ export async function get_registered_users() {
 
 export async function get_registered_sensors() {
 	try {
-		const resp = await axios.post(API_GET_SENSORS, null, config);
+		const resp = await axios.post(API_GET_SENSORS, null);
 		const data = await resp.data;
 		if (data.status === true) {
 			return {
@@ -54,7 +53,7 @@ export async function get_registered_sensors() {
 
 export async function get_registered_trafficlights() {
 	try {
-		const resp = await axios.post(API_GET_TRAFFIC_LIGHTS, null, config);
+		const resp = await axios.post(API_GET_TRAFFIC_LIGHTS, null);
 		const data = await resp.data;
 		console.log("lightData", data);
 		if (data.status === true) {
