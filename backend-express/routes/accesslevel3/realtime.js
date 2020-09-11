@@ -9,12 +9,12 @@ router.get('/sensorbuffer', (res, req) => {
     req.status(200).json(SensorBuffer)
 })
 
-router.get('/lightbuffer', (res, req) => {
-    axios.get(`${process.env.SOCKET_URL}/devicedata/lights`, { headers: { Authorization: res.header('Authorization') } })
+router.get('/lightbuffer', (req, res) => {
+    axios.get(`${process.env.SOCKET_URL}/devicedata/lights`, {headers:{Authorization:req.header('Authorization')}})
         .then(res => {
             LightBuffer = res.data
-        }).catch(err => { })
-    req.send(LightBuffer)
+        }).catch(err => { console.log(err) })
+    res.send(LightBuffer);
 })
 
 router.get('/', (req, res) => { res.status(200).json({ "route-access": true }) })
