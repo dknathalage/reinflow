@@ -10,16 +10,20 @@ router.get('/sensorbuffer', (res, req) => {
 })
 
 router.get('/lightbuffer', (res, req) => {
-    req.status(200).json(LightBuffer)
+    axios.get(`${process.env.SOCKET_URL}/devicedata/lights`, { headers: { Authorization: res.header('Authorization') } })
+        .then(res => {
+            LightBuffer = res.data
+        }).catch(err => { })
+    req.send(LightBuffer)
 })
 
 router.get('/', (req, res) => { res.status(200).json({ "route-access": true }) })
 
 cron.schedule('*/1 * * * * *', () => {
-    axios.get(`${process.env.SOCKET_URL}/devicedata/lights`)
-        .then(res => {
-            LightBuffer = res.data
-        }).catch(err => { console.log(err) })
+    // axios.get(`${process.env.SOCKET_URL}/devicedata/lights`, {headers:{Authorization:}})
+    //     .then(res => {
+    //         LightBuffer = res.data
+    //     }).catch(err => {  })
 })
 
 module.exports = router;

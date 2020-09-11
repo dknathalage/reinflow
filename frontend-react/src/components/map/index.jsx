@@ -17,14 +17,11 @@ class ReinFlowMap extends React.Component {
 	constructor() {
 		super();
 		this.state = { value: 0, lat: 0, lon: 0, icons: [] };
-		//this.setState({ lat: res.data.lat, lon: res.data.lon, value: res.data.status });
-
 
 		setInterval(async () => {
 			const responce = await axios(`${API_URL}/api/l3/realtime/lightbuffer`).catch(err => {
 				console.log(err)
 			})
-			//console.log(responce.data.data)
 			const icons = responce.data.data.map((value) => <TrafficLightMarker key={value._id} lat={value.lat} lon={value.lon} color={value.status} />)
 			this.setState({ icons })
 			console.log(this.state.icons)
