@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
-	API_URL
+	API_URL,
+	API_USER_SETLEVEL
 } from './urls'
 const API_ACCESS = `${API_URL}/api/sensors`;
 const API_ACCESS_LIGHTS = `${API_URL}/api/lights`;
@@ -95,6 +96,31 @@ export async function update_username(username) {
 		return {
 			status: false,
 			message: error.message
+		}
+	}
+}
+
+
+export async function user_accesslevels(id, level) {
+	try {
+		console.log("id", id)
+		const resp = await axios.post(`${API_USER_SETLEVEL}/${id}/${level}`, null);
+		const data = await resp.data;
+		if (data.status === true) {
+			return {
+				status: true,
+				message: data.message
+			}
+		} else {
+			return {
+				status: false,
+				message: "Something happened."
+			}
+		}
+	} catch (error) {
+		return {
+			status: false,
+			error: error.message
 		}
 	}
 }
