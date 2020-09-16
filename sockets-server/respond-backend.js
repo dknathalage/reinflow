@@ -110,7 +110,8 @@ async function changeToRedAll() {
     }, 5000);
 }
 
-router.post('/lights/:status', (req, res) => {
+//route update -> /all
+router.post('/lights/all/:status', (req, res) => {
     const status = req.params.status;
     if (!status) {
         res.status(404).send({
@@ -126,6 +127,16 @@ router.post('/lights/:status', (req, res) => {
 
     }
 })
+
+//get all traffic light data
+router.post('/lights/all/', (req, res) => {
+    res.status(200).json(lightData);
+})
+
+
+
+
+
 
 /** 
  * @api { get } /sensors/:sensorId Return Sensor 1
