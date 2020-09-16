@@ -16,8 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from .core.views import TestView
+from .core.views import RouteView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', TestView.as_view(), name="test")
+    path('test', TestView.as_view(), name="test"),
+    path('routes', RouteView.as_view(), name="Generate routes")
 ]
