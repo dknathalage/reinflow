@@ -48,10 +48,24 @@ sensorIO.on('connection', socket => {
         sensor_1_data.push(payload);
     })
 })
-/**
- * express route 
- */
 
+/** 
+* @api { get } /device-data-1/sensors/:sensorId Return Sensor information for a specific sensor ID
+* @apiGroup Device
+* @apiSuccessExample { json } Success - Response:
+*{
+*  "Light_Name": "null",
+*  "Light_Description": "null",
+*  "Location": {
+*    "lon": "null",
+*    "lat": "null"
+*  }
+*}
+* @apiErrorExample { json } Error - Response:
+* {
+*     "not yet implemented"
+* } 
+*/
 express.get('/device-data-1/sensors/:sensorId', (req, res) => {
     var sensorId = req.params.sensorId;
     console.log(sensorId)
