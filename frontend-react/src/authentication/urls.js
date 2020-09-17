@@ -1,5 +1,6 @@
 export let API_URL = 'https://reinflow-socketserver.vercel.app'
 
+
 export let API_GET_USERS_URL = `${API_URL}/api/l1/info/users`
 export let API_GET_SENSORS = `${API_URL}/api/l2/info/sensors`
 export let API_GET_TRAFFIC_LIGHTS = `${API_URL}/api/l2/info/lights`
