@@ -1,10 +1,11 @@
 import React from 'react';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu, Breadcrumb, Alert } from 'antd';
 import ReinFlowMap from '../../../components/map';
 
 import './admin.css';
 import ReinFlowFooter from '../../footer/footer';
 import Headers from '../../header';
+import Reinflowmap from '../../map/refinflowMap';
 
 const { Header, Content } = Layout;
 
@@ -22,8 +23,18 @@ export default function AdminHome() {
 						<Breadcrumb.Item>Home</Breadcrumb.Item>
 						<Breadcrumb.Item>Overview</Breadcrumb.Item>
 					</Breadcrumb>
+					<Alert
+						message="Warning"
+						description={
+							<p>
+								This build is not connected to our backend API systems.<strong style={{ color: 'red' }}> Demonstration Purposes only.</strong>{' '}
+							</p>
+						}
+						type="warning"
+						showIcon
+					/>
 					<div className="site-layout-background" style={{ padding: 24, textAlign: 'center', zIndex: 1 }}>
-						<ReinFlowMap />
+						<Reinflowmap />
 					</div>
 				</Content>
 				<ReinFlowFooter />
