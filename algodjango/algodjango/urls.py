@@ -18,6 +18,6 @@ from django.urls import path
 from algorithm.views import TestView, RouteView
 
 urlpatterns = [
-    path('test', TestView.as_view(), name="test"),
+    path('', TestView.as_view(), name="test"),
     path('routes', RouteView.as_view(), name="Generate routes")
 ]
