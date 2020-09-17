@@ -77,27 +77,29 @@ function Reinflowmap() {
 	const handlePointA = async (e) => {
 		e.preventDefault();
 		setselectingPoint('A');
+		openNotificationWithIcon('warning', 'Platform Manager', 'Now selecting a starting point!');
 	};
 
 	const handlePointB = async (e) => {
 		e.preventDefault();
 		setselectingPoint('B');
+		openNotificationWithIcon('warning', 'Platform Manager', 'Now selecting an ending point!');
 	};
 
 	const findRoute = async (e) => {
 		e.preventDefault();
 		if (pointA !== null || pointB !== null) {
+			openNotificationWithIcon('success', 'Platform Manager', 'Finding the best possible route for you!');
 			fetch(pointA, pointB);
 		} else {
 			openNotificationWithIcon('error', 'Platform Manager', 'Please select a point first.');
 		}
 	};
-	var latlngs = [ [ -37.850702, 145.119881 ], [ -37.849874, 145.112964 ], [ -37.849628, 145.109074 ] ];
 
 	return (
 		<div>
 			<Map
-				center={[ -37.84766, 145.11486 ]}
+				center={[ -37.815993, 144.957073 ]}
 				zoom={16}
 				style={{ zIndex: 1 }}
 				id="iconContainer"
@@ -131,7 +133,6 @@ function Reinflowmap() {
 					</Descriptions.Item>
 				</Descriptions>
 			</div>
-			{segmentData === true ? <h1>{segmentData}</h1> : <h1>NOT YET</h1>}
 		</div>
 	);
 }
