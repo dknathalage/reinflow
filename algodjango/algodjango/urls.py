@@ -15,8 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .core.views import TestView
-from .core.views import RouteView
+from algorithm.views import TestView, RouteView
 
 urlpatterns = [
     path('test', TestView.as_view(), name="test"),

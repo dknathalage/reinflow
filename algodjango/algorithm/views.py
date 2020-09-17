@@ -17,10 +17,21 @@ class TestView(APIView):
 
 # the route clearance requests sent by backend is handled here
 # http://localhost:8000/routes
+# post body
+# {
+#     "point1_longitude":1.1,
+#     "point1_latitude":2.3,
+#     "point2_longitude":2.3,
+#     "point2_latitude":2.3
+# }
 class RouteView(APIView):
     queryset = RouteCoordinates.objects.all()
     serializer_class = RouteDataSerializer
 
     def post(self, request, *argsm, **kwargs):
-        print(request)
-        return Response("Hello")
+        serializer = RouteDataSerializer(data=request.data)
+        if(serializer.is_valid()):
+            serializer.save()
+            print(serializer.data)
+        
+        return Response("Called")
