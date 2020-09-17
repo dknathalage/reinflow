@@ -3,6 +3,7 @@ import osmnx as ox
 import math
 import requests
 import heapq
+import numpy as np
 
 class Route():
     @staticmethod
@@ -56,7 +57,10 @@ class Route():
             raise Exception('Unsuccessful light location retrieval')
             return
         
-        print(r.json())
+        len_route_nodes = len(nodelist)
+
+        closest_lights = np.zeros((len_route_nodes, 6, 2))
+        print(closest_lights)
 
         # visualise route
         fig, ax = ox.plot_graph_route(
