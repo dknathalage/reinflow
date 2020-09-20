@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+	API_UPDATE_COORDS,
 	API_URL,
 	API_USER_SETLEVEL
 } from './urls'
@@ -121,6 +122,33 @@ export async function user_accesslevels(id, level) {
 		return {
 			status: false,
 			error: error.message
+		}
+	}
+}
+
+export async function set_coords(username, starting, ending, coords) {
+	try {
+		const token = localStorage.getItem('auth-token')
+		const resp = await axios.get(`${API_UPDATE_COORDS}/${token}/${username}`, {
+			start_point: starting,
+			end_point: ending,
+			coords
+		});
+		if (await resp.data.status === true) {
+			return {
+				status: true,
+				mesage: "Action Logged"
+			}
+		} else {
+			return {
+				status: false,
+				message: await resp.data.error
+			}
+		}
+	} catch (error) {
+		return {
+			status: false,
+			message: error.message
 		}
 	}
 }
