@@ -27,4 +27,9 @@ To ensure the security from the client side the endpoints are divided into 3 mai
 - Level 2 -> Light control and statistics visualisation
 - Level 3 -> Visualise traffic and traffic light data
 
+## Frontend 
+Frontend project contains the UI elements to visualise traffic statuses and management. All the different user levels have custom user interface for security reasons. Users can visualise and schedule routes using the features of the frontend application. User information can be changed using the user dashboard.
 
+## Socket Server
+
+## Algorithm Interface
