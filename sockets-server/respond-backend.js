@@ -20,19 +20,11 @@ var lightData = {}
 router.get('/lights', async (req, res) => {
     if (Object.keys(lightData) == 0) {
         console.log("Fetching...")
-        const lights = await Axios.get(`${process.env.BACKEND_URL}/api/l3/lights`, {
-            headers: {
-                Authorization: req.header('Authorization')
-            }
-        })
+        const lights = await Axios.get(`${process.env.BACKEND_URL}/api/l3/lights`, { headers: { Authorization: req.header('Authorization') } })
         console.log("Fetch complete...")
         lightData = lights.data.sensors
         for (var i = 0; i < lightData.length; i++) {
-            lightData[i] = {
-                ...lightData[i],
-                status: 2,
-                control: "auto"
-            }
+            lightData[i] = { ...lightData[i], status: 2, control:"auto" }
         }
     }
     res.json({
@@ -41,9 +33,7 @@ router.get('/lights', async (req, res) => {
 });
 
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
 
 async function changeToRed(arrayId) {
