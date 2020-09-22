@@ -15,9 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from algorithm.views import TestView, RouteView
+from algorithm.views import LightView, RouteView
 
 urlpatterns = [
-    path('', TestView.as_view(), name="test"),
-    path('routes', RouteView.as_view(), name="Generate routes")
+    path('admin/', admin.site.urls),
+    path('light/', LightView.as_view(), name="Get All Lights"),
 ]
