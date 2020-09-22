@@ -34,4 +34,4 @@ Frontend project contains the UI elements to visualise traffic statuses and mana
 We use socket server to communicate with low level hardware(We use simulated values here for the developement purposes). Socket maintains constant connection between socket clients(hardware) and socket server(SocketIo). When the backend requests data from the socket server the data is being sent.
 
 ## Algorithm Interface
-Algorithm interface is a DJango project which contains the logic for traffic control and routing. This project can be extend to contain multiple control algorithms. Currently this project contains the logic to control traffic lights and routing for emergency vehicles.
+Algorithm interface is a DJango project which contains the logic for traffic control and routing. This project can be extend to contain multiple control algorithms. Currently this project contains the logic to control traffic lights and routing for emergency vehicles
