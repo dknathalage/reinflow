@@ -23,11 +23,11 @@ describe('User creation', () => {
             }).catch(err => expect(err.response.status).toBe(403))
     })
 
-    // test('remove created user', async () => {
-    //     /// Remove added user
-    //     axios.get(`http://localhost:5000/api/user/remove/${userid}`)
-    //         .then((res) => { expect(res.status).toBe(200); })
-    // })
+    test('remove created user', async () => {
+        /// Remove added user
+        axios.get(`http://localhost:5000/api/user/remove/${userid}`)
+            .then((res) => { expect(res.status).toBe(200); })
+    })
 })
 
 describe('Validate user login', () => {
