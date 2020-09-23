@@ -112,6 +112,3 @@ router.get('/remove/:id', async (req, res) => {
     const removed = await User.findByIdAndDelete(req.params.id);
     res.send(removed);
 })
-
-
-module.exports = router;
