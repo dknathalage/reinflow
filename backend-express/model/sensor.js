@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 module.exports = mongoose.model('sensor', new mongoose.Schema({
-    id:String,
+    id: String,
+    sensor_name: String,
+    sensor_description: String,
+    lon: Number,
+    lat: Number,
     location: {
-        type:{
+        type: {
             type: String,
-            enum:['Point'],
+            enum: ['Point'],
             required: true
-        },
-        coordinates: {
-            type:[Number],
-            required:true
         }
     }
 }));

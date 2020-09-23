@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 module.exports = mongoose.model('light', new mongoose.Schema({
-    id:String,
+    id: String,
+    light_name: String,
+    light_description: String,
+    lon: Number,
+    lat: Number,
     location: {
-        type:{
+        type: {
             type: String,
-            enum:['Point'],
+            enum: ['Point'],
             required: true
-        },
-        coordinates: {
-            type:[Number],
-            required:true
         }
     }
 }));

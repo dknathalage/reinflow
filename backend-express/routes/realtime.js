@@ -1,26 +1,31 @@
-const router = require('express').Router()
-const cron = require('node-cron')
+// const router = require('express').Router()
+// const cron = require('node-cron')
+// const axios = require('axios')
 
-SensorBuffer = {};
-LightBuffer = {};
+// SensorBuffer = {};
+// LightBuffer = {};
+/**
+ * Deprecation warning
+ * 
+ * Endpoints in these files have been moved to respective accesslevel folders
+ * use accesslevel endpoints from the given folders for more secure routes
+ */
 
-router.get('/sensor-buffer', (res, req) => {
-    req.json(SensorBuffer)
-})
+// these endpoints have been moved to accesslevel3/realtime.js file
+// router.get('/sensorbuffer', (res, req) => {
+//     req.status(200).json(SensorBuffer)
+// })
 
-router.get('/light-buffer', (res, req) => {
-    req.json(LightBuffer)
-})
+// router.get('/lightbuffer', (res, req) => {
+//     req.status(200).json(LightBuffer)
+// })
 
-cron.schedule('*/15 * * * * *', ()=>{
-    SensorBuffer = {};
-    LightBuffer = {};
-    console.log("clearing buffers")
-})
+// cron.schedule('*/1 * * * * *', () => {
+//     axios.get(`${process.env.SOCKET_URL}/devicedata/lights`)
+//         .then(res => {
+//             LightBuffer = res.data
+//             console.log(LightBuffer);
+//         }).catch(err => { console.log(err) })
+// })
 
-cron.schedule('*/1 * * * * *', ()=>{
-    /** Append to Arrays */
-    console.log('appending to buffers')
-})
-
-module.exports = router;
+// module.exports = router;
