@@ -10,28 +10,30 @@ describe('User creation', () => {
                 name: "jestuser",
                 pass: "testuser"
             })
-        expect(res.status).toBe(200)
         userid = res.data.details._id
+        expect(res.status).toBe(200)
     })
 
     test('create an existing user', async () => {
-        const res = await axios.post('http://localhost:5000/api/user/register',
+        await axios.post('http://localhost:5000/api/user/register',
             {
                 email: "testuser@test.com",
                 name: "jestuser",
                 pass: "testuser"
-            })
-        console.log(res)
-
-        /// Remove added user
-        const removedUser = await User.remove({_id:userid})
-        console.log(removedUser)
+            }).catch(err => expect(err.response.status).toBe(403))
     })
+
+    // test('remove created user', async () => {
+    //     /// Remove added user
+    //     axios.get(`http://localhost:5000/api/user/remove/${userid}`)
+    //         .then((res) => { expect(res.status).toBe(200); })
+    // })
 })
 
 describe('Validate user login', () => {
     test('login from test account', async () => {
-        const res = await axios.post('http://localhost:5000/api/user/login', { email: 'test1@test.com', pass: 'test' })
+        const res = await axios.post('http://localhost:5000/api/user/login',
+            { email: 'test1@test.com', pass: 'test' })
         expect(res.status).toBe(200);
     })
 })
