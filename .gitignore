@@ -2,3 +2,4 @@ node_modules
 env
 .env
 .idea
+__pycache__/
