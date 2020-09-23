@@ -10,8 +10,6 @@ import { openNotificationWithIcon } from '../../notification';
 import { useDispatch } from 'react-redux';
 import { login } from '../../../redux/actions/user';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
-
 
 const { Step } = Steps;
 const { Header, Content } = Layout;
@@ -19,7 +17,7 @@ const { Header, Content } = Layout;
 function UserLogin() {
 	const history = useHistory();
 	const dispatch = useDispatch();
-	const [statusUpdate, setstatusUpdate] = useState([
+	const [ statusUpdate, setstatusUpdate ] = useState([
 		{
 			register: 'process',
 			auth: 'wait',
@@ -37,6 +35,7 @@ function UserLogin() {
 
 	const onFinish = async (values) => {
 		const data = await login_user(values.email, values.password);
+		console.log(data);
 		if (!data.token) {
 			openNotificationWithIcon('warning', 'Invalid Details', 'Please check your email or password');
 		} else {
@@ -66,15 +65,12 @@ function UserLogin() {
 	};
 
 	return (
-		<React.Fragment>
+		<Layout style={{ minHeight: '100vh' }}>
 			<Headers />
-			<Layout className="site-layout" style={{ marginLeft: 200, minHeight: '100vh' }}>
-				<Header
-					className="site-layout-background"
-					style={{ padding: 0, position: 'fixed', width: '100%', background: 'black', zIndex: 10 }}
-				/>
-				<Content style={{ margin: '29px 16px 0', overflow: 'initial' }}>
-					<Breadcrumb style={{ margin: '50px 0' }}>
+			<Layout className="site-layout">
+				<Header className="site-layout-background" style={{ padding: 0 }} />
+				<Content style={{ margin: '0 16px' }}>
+					<Breadcrumb style={{ margin: '16px 0' }}>
 						<Breadcrumb.Item>Users</Breadcrumb.Item>
 						<Breadcrumb.Item>Login</Breadcrumb.Item>
 					</Breadcrumb>
@@ -93,7 +89,7 @@ function UserLogin() {
 						</Steps>
 					</div>
 
-					<div className="site-layout-background" style={{ padding: 24 }}>
+					<div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
 						<h1 style={{ fontWeight: 'bolder' }}>User Login</h1>
 						<div style={{ paddingTop: '50px', paddingBottom: '50px' }}>
 							<Form
@@ -120,7 +116,7 @@ function UserLogin() {
 								<Form.Item
 									label="Password"
 									name="password"
-									rules={[{ required: true, message: 'Please input your password!' }]}
+									rules={[ { required: true, message: 'Please input your password!' } ]}
 								>
 									<Input.Password />
 								</Form.Item>
@@ -142,7 +138,7 @@ function UserLogin() {
 				</Content>
 				<ReinFlowFooter />
 			</Layout>
-		</React.Fragment>
+		</Layout>
 	);
 }
 
