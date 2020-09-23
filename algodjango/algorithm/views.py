@@ -40,7 +40,7 @@ class LightView(APIView):
             dict(i)
             self.get_socket(i['_id'], 0)
             for j in data:
-                if (i['lat'] == j[0] and i['lon'] == j[1]):
+                if (i['lat'] == j[1] and i['lon'] == j[0]):
                     self.get_socket(i['_id'], 1)
                     break
         return Response("SUCCESS")
