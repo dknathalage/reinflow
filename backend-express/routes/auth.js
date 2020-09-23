@@ -5,6 +5,23 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv').config()
 
+
+/** 
+* @api { post } /register Register new user to database
+* @apiGroup Auth
+* @apiSuccessExample { json } Success - Response:
+*{
+*  "name": "John",
+*  "email": "john_doe@email.com",
+*  "pass": "pass",
+*  "accessLevel": "3",
+*  }
+*}
+* @apiErrorExample { json } Error - Response:
+* {
+*     "Error 400: Bad Request"
+* } 
+*/
 router.post('/register', async (req, res) => {
     console.log(req.body);
     const {
@@ -43,6 +60,23 @@ router.post('/register', async (req, res) => {
     }
 })
 
+
+/** 
+* @api { post } /login Return Sensor information for a specific sensor ID
+* @apiGroup Auth
+* @apiSuccessExample { json } Success - Response:
+*{
+*  "token": "Authorisation Token",
+*  "username": "john",
+*  "access_level": "3",
+*  "id": "5f4dfad37b549140a0513c63",
+*  }
+*}
+* @apiErrorExample { json } Error - Response:
+* {
+*     "Error 400: Bad Request"
+* } 
+*/
 router.post('/login', async (req, res) => {
     const {
         error
