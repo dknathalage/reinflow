@@ -1,63 +1,54 @@
-<<<<<<< HEAD
-from django.http import JsonResponse
 import json
-from .model import RouteCoordinates
-from .serializers import RouteDataSerializer
-
-from rest_framework.response import Response
-from rest_framework.views import APIView
-
-# API Test endpoint
-# http://localhost:8000/test
-class TestView(APIView):
-    def get(self, request, *args, **kwargs):
-        data = {'test':'test response'}
-        return Response(data)
-
-
-
-# the route clearance requests sent by backend is handled here
-# http://localhost:8000/routes
-# post body
-# {
-#     "point1_longitude":1.1,
-#     "point1_latitude":2.3,
-#     "point2_longitude":2.3,
-#     "point2_latitude":2.3
-# }
-class RouteView(APIView):
-    queryset = RouteCoordinates.objects.all()
-    serializer_class = RouteDataSerializer
-
-    def post(self, request, *argsm, **kwargs):
-        serializer = RouteDataSerializer(data=request.data)
-        if(serializer.is_valid()):
-            serializer.save()
-            print(serializer.data)
-        
-        return Response("Called")
-=======
+import requests
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from . models import Light, Route
 from . serializers import lightSerializer, routeSerializer
+from rest_framework.decorators import api_view, renderer_classes
+from rest_framework.renderers import JSONRenderer
+import os
 
 # http://localhost:8000/
 
+
 class LightView(APIView):
-    
+
+    ### Once off method to populate model! ###
+    # def create_sample(self):
+    #     module_dir = os.path.dirname(__file__)  # get current directory
+    #     file_path = os.path.join(module_dir, 'lightdata.json')
+
+    #     with open(file_path, 'r') as data_file:
+    #         data = json.load(data_file)
+    #     for i in data:
+    #         Light.objects.create(_id=i['_id'], SITE_NO=i['SITE_NO'], SITE_NAME=i['SITE_NAME'], lat=i['lat'], lon=i['lon'], SIGNAL=i['SIGNAL'])
+
     def get(self, request):
         queryset = Light.objects.all()
-        serializer_class = lightSerializer(queryset, many=True)
-        return Response(serializer_class.data)
+        serializer = lightSerializer(queryset, many=True)
+        return Response(serializer.data)
 
-    def post(self, request):
-        pass
+    def get_socket(self, id, colour):
+        r = requests.get(f'https://localhost:5000/lights/{id}/{colour}')
+        return Response("LIGHT UPDATED")
 
+    def post(self, request, data):
+        queryset = Light.objects.all()
+        serializer = lightSerializer(queryset, many=True)
+        for i in serializer.data:
+            dict(i)
+            self.get_socket(i['_id'], 0)
+            for j in data:
+                if (i['lat'] == j[1] and i['lon'] == j[0]):
+                    self.get_socket(i['_id'], 1)
+                    break
+        return Response("SUCCESS")
+
+        
 class RouteView():
     queryset = Route.objects.all()
-    serializer_class = routeSerializer
+    serializer = routeSerializer
 
     def post(self, request):
         serializer = routeSerializer(data=request.data)
@@ -65,6 +56,7 @@ class RouteView():
             serializer.save()
             print(serializer.data)
 
+#https://reinflow-backend.vercel.app/routedata/requests
 
 # import osmnx as ox
 # import matplotlib.pyplot as plt
@@ -85,4 +77,8 @@ class RouteView():
 
 #     for i in nlist:
 #         # Do some post request
->>>>>>> 0ce67eb0dd8c2485cf481a95fbdb7b56e2e5aa41
+
+
+    # url = 'http://api.example.com/...' 
+    # params = {'id': id, 'signal': signal}
+    # r = requests.get(url, params=params)
