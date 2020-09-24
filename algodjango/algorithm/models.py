@@ -3,15 +3,12 @@ from pymongo import MongoClient
 
 
 class Light(models.Model):
-    SIGNAL = models.IntegerField()
+    _id = models.CharField(max_length=200)
+    SITE_NO = models.IntegerField()
     SITE_NAME = models.CharField(max_length=200)
     lat = models.FloatField()
     lon = models.FloatField()
-    _id = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.SITE_NAME
-
+    SIGNAL = models.IntegerField()
 
 class Route(models.Model):
     lat = models.FloatField()
