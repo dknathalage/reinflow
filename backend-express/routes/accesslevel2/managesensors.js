@@ -1,19 +1,32 @@
 const router = require('express').Router();
 const verify = require('../../functions/verifyToken');
 const Sensor = require('../../model/sensor');
-const { registerValidation } = require('../../functions/sensorValidation');
+const {
+	registerValidation
+} = require('../../functions/sensorValidation');
+
+
+router.post('/', async (req, res) => {
+	res.status(200).json({
+		status: true,
+		message: "test"
+	})
+})
 
 router.post(
 	'/register',
 	(req, res, next) => verify(req, res, next, 3),
 	async (req, res) => {
-		const { error } = registerValidation(req.body);
+		const {
+			error
+		} = registerValidation(req.body);
 		if (error) {
 			return res.status(404).json({
 				status: false,
 				error: error.details[0].message
 			});
 		}
+		console.log(req.body)
 		const pointExists = await Sensor.findOne({
 			location: [req.body.lon, req.body.lat]
 		});
@@ -27,9 +40,10 @@ router.post(
 		const sensor = new Sensor({
 			sensor_name: req.body.sensorName,
 			sensor_description: req.body.sensorDescription,
+			lon: req.body.lon,
+			lat: req.body.lat,
 			location: {
 				type: 'Point',
-				coordinates: [req.body.lon, req.body.lat]
 			}
 		});
 		try {
