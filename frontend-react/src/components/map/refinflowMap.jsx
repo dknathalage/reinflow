@@ -10,16 +10,16 @@ import { openNotificationWithIcon } from '../notification';
 import MarkerPoint from './components/marker-points';
 import { API_URL } from '../../authentication/urls';
 function Reinflowmap() {
-	const [ segments, setsegments ] = useState([]);
-	const [ segmentData, setsegmentData ] = useState(null);
-	const [ markers, setmarkers ] = useState([]);
+	const [segments, setsegments] = useState([]);
+	const [segmentData, setsegmentData] = useState(null);
+	const [markers, setmarkers] = useState([]);
 
-	const [ pointA, setpointA ] = useState(null);
-	const [ pointB, setpointB ] = useState(null);
+	const [pointA, setpointA] = useState(null);
+	const [pointB, setpointB] = useState(null);
 
-	const [ selectingPoint, setselectingPoint ] = useState(null);
+	const [selectingPoint, setselectingPoint] = useState(null);
 
-	const [ trafficLights, settrafficLights ] = useState([]);
+	const [trafficLights, settrafficLights] = useState([]);
 
 	useEffect(() => {
 		//fetch();
@@ -52,12 +52,13 @@ function Reinflowmap() {
 		console.log('data', data);
 		const features = await data.features[0];
 		const coords = await features.geometry.coordinates;
+		axios.post('http://localhost:8000/', { data: data })
 		console.log('coords', await coords);
 		let coordArr = new Array();
 		coords.forEach((element) => {
 			let tempArr = element;
 			console.log(tempArr[1], tempArr[0]);
-			coordArr.push([ tempArr[1], tempArr[0] ]);
+			coordArr.push([tempArr[1], tempArr[0]]);
 		});
 		setTimeout(async () => {
 			setsegments(coordArr);
@@ -68,9 +69,9 @@ function Reinflowmap() {
 
 	const handleOnClick = async (e) => {
 		if (selectingPoint === 'A') {
-			setpointA([ e.latlng.lat, e.latlng.lng ]);
+			setpointA([e.latlng.lat, e.latlng.lng]);
 		} else if (selectingPoint === 'B') {
-			setpointB([ e.latlng.lat, e.latlng.lng ]);
+			setpointB([e.latlng.lat, e.latlng.lng]);
 		}
 	};
 
@@ -99,7 +100,7 @@ function Reinflowmap() {
 	return (
 		<div>
 			<Map
-				center={[ -37.815993, 144.957073 ]}
+				center={[-37.815993, 144.957073]}
 				zoom={16}
 				style={{ zIndex: 1 }}
 				id="iconContainer"
