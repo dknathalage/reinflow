@@ -6,6 +6,8 @@
   "scripts": {
     "test": "jest --passWithNoTests --config ./tests/jest.config.js",
     "start": "nodemon -r dotenv/config app.js",
+    "start-server": "npm start",
+    "ci": "start-server-and-test start-server http://localhost:5000/ test",
     "build": "apidoc -o public/generated-docs/ -e node_modules/"
   },
   "keywords": [
@@ -28,6 +30,7 @@
     "supertest": "^4.0.2"
   },
   "devDependencies": {
-    "nodemon": "^2.0.4"
+    "nodemon": "^2.0.4",
+    "start-server-and-test": "^1.11.4"
   }
 }
