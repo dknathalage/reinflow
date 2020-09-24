@@ -17,7 +17,8 @@ jobs:
       - image: circleci/node:14
     steps:
       - checkout
-      - run: cd backend-express && npm install && npm start && npm test
+      - run: cd backend-express && npm install && npm start
+      - run:  npm test
 workflows:
   version: 2
   build_and_test:
