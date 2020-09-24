@@ -23,16 +23,6 @@ export default function AdminHome() {
 						<Breadcrumb.Item>Home</Breadcrumb.Item>
 						<Breadcrumb.Item>Overview</Breadcrumb.Item>
 					</Breadcrumb>
-					<Alert
-						message="Warning"
-						description={
-							<p>
-								This build is not connected to our backend API systems.<strong style={{ color: 'red' }}> Demonstration Purposes only.</strong>{' '}
-							</p>
-						}
-						type="warning"
-						showIcon
-					/>
 					<div className="site-layout-background" style={{ padding: 24, textAlign: 'center', zIndex: 1 }}>
 						<Reinflowmap />
 					</div>
