@@ -1,10 +1,15 @@
 const router = require('express').Router()
-const users = require('./userinfo');
+const infoRoute = require('./info');
+const userManage = require('./userinfo');
+
+router.use('/info', infoRoute);
+router.use('/manage', userManage)
 
 router.get('/', (req, res) => {
-    res.json({ "route-access": true });
+    res.json({
+        "route-access": true
+    });
 });
 
-router.use('/users', users);
 
 module.exports = router;
