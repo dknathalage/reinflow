@@ -27,6 +27,8 @@ describe('test access level 3 endpoints', () => {
     })
 
     /** ENDPOINT RELATED TESTS */
+    // base endpoint
+    test('test endpoint access')
 
 
 
