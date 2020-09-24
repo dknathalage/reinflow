@@ -34,7 +34,7 @@ app.use(async (req, res, next) => {
 });
 
 // serving static docs
-app.use(express.static(`${__dirname}/public/generated-docs`));
+// app.use(express.static(`${__dirname}/public/generated-docs`));
 
 // connection to mongodb
 mongoose.connect(process.env.MONGO_URL, {
@@ -78,9 +78,9 @@ app.use('/api/l3', (req, res, next) => verify(req, res, next, 3), accessL3); // 
  * }
  * */
 
- 
+
 app.get('/', (req, res) => {
-    res.sendFile(`/public/generated-docs/index.html`);
+    res.sendStatus(200);
 });
 
 // listen on assigned port
