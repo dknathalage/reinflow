@@ -4,7 +4,7 @@
   "description": "Backend server of REINFLOW traffic control platform",
   "main": "app.js",
   "scripts": {
-    "test": "jest --passWithNoTests",
+    "test": "jest --passWithNoTests --config ./tests/jest.config.js",
     "start": "nodemon -r dotenv/config app.js",
     "build": "apidoc -o public/generated-docs/ -e node_modules/"
   },
