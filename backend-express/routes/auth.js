@@ -40,7 +40,7 @@ router.post('/register', async (req, res) => {
 
     const salt = await bcrypt.genSalt(10)
     const hashPassword = await bcrypt.hash(req.body.pass, salt)
-    const accesslvl = req.body.al === undefined ? 3 : req.body.al;
+    const accesslvl = req.body.al === undefined ? 3 : parseInt(req.body.al);
     const user = new User({
         name: req.body.name,
         email: req.body.email,

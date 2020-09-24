@@ -9,7 +9,8 @@ describe('test access level 2 endpoints', () => {
             {
                 email: "al2user@test.com",
                 name: "jestuser",
-                pass: "testuser"
+                pass: "testuser",
+                al: 2
             })
         userid = res.data.details._id
         expect(res.status).toBe(200)
@@ -29,7 +30,21 @@ describe('test access level 2 endpoints', () => {
 
 
     /** ENDPOINT RELATED TESTS */
+    test('test endpoint access for l3', async () => {
+        const res = await axios.get('http://localhost:5000/api/l3', { headers: { authorization: token } });
+        expect(res.data['route-access']).toBe(true);
+    })
 
+    test('test endpoint access for l2', async () => {
+        const res = await axios.get('http://localhost:5000/api/l2', { headers: { authorization: token } });
+        expect(res.data['route-access']).toBe(true);
+    })
+
+    test('test endpoint access for l1', async () => {
+        await axios.get('http://localhost:5000/api/l1', { headers: { authorization: token } }).catch((err) => {
+            expect(err.response.data['route-access']).toBe(false);
+        });
+    })
 
     test('remove created user', async () => {
         /// Remove added user

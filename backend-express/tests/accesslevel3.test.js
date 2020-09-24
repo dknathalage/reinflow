@@ -28,10 +28,22 @@ describe('test access level 3 endpoints', () => {
 
     /** ENDPOINT RELATED TESTS */
     // base endpoint
-    test('test endpoint access')
+    test('test endpoint access for l3', async () => {
+        const res = await axios.get('http://localhost:5000/api/l3', { headers: { authorization: token } });
+        expect(res.data['route-access']).toBe(true);
+    })
 
+    test('test endpoint access for l2', async () => {
+        await axios.get('http://localhost:5000/api/l2', { headers: { authorization: token } }).catch((err) => {
+            expect(err.response.data['route-access']).toBe(false);
+        });
+    })
 
-
+    test('test endpoint access for l1', async () => {
+        await axios.get('http://localhost:5000/api/l1', { headers: { authorization: token } }).catch((err) => {
+            expect(err.response.data['route-access']).toBe(false);
+        });
+    })
 
     test('remove created user', async () => {
         /// Remove added user
