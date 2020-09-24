@@ -81,6 +81,7 @@ describe('test access level 3 endpoints', () => {
 
     /// Remove the created user from the database
     /// This step is important to maintain the future tests to execute properly
+
     test('remove created user', async () => {
         /// Remove added user
         axios.get(`http://localhost:5000/api/user/remove/${userid}`)
