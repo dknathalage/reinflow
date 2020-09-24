@@ -3,7 +3,7 @@ const Ligth = require('../../model/light')
 const Route = require('../../model/routing');
 
 
-const routesArr = new Array();
+let routesArr = new Array();
 
 
 router.get('/',
@@ -24,7 +24,7 @@ router.get('/',
     }
 )
 
-router.get('/routedata/:token/:username', async (req, res) => {
+router.post('/routedata/:token/:username', async (req, res) => {
     try {
         const token = req.params.token;
         const username = req.params.username;
@@ -33,6 +33,7 @@ router.get('/routedata/:token/:username', async (req, res) => {
             end_point,
             coords
         } = req.body;
+        console.log(req.body);
         if (!start_point || !end_point) {
             res.status(404).json({
                 status: false,
@@ -72,11 +73,14 @@ router.get('/routedata/:token/:username', async (req, res) => {
             const savedRoute = await route.save();
             res.status(200).json({
                 status: true,
-                message: "Action logged."
+                message: "Action logged.",
+                savedRoute
             })
+            console.log(routesArr)
 
         }
     } catch (error) {
+        console.log(error)
         res.status(404).json({
             status: false,
             message: `Error on Saving`,
