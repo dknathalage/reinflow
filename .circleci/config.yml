@@ -6,6 +6,7 @@ jobs:
       - image: circleci/node:14
     steps:
       - checkout
+      - run: npm install apidoc -g
       - run: cd backend-express && npm install && npm run build && npm run ci
 workflows:
   version: 2
