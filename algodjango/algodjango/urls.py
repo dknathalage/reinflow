@@ -19,5 +19,5 @@ from algorithm.views import LightView, RouteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('light/', LightView.as_view(), name="Get All Lights"),
+    path('light', LightView.as_view(), name="Get All Lights"),
 ]

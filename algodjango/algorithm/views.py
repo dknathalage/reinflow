@@ -34,17 +34,42 @@ class LightView(APIView):
         print(r.text)
         #return Response("LIGHT UPDATED")
 
+    def reset_socket(self):
+        r = requests.get(f'http://localhost:5001/lights/all/1')
+        return Response("LIGHTS UPDATED")
+
     def post(self, request):
         data = request.data
         queryset = Light.objects.all()
         serializer = lightSerializer(queryset, many=True)
+        self.reset_socket()
         for i in serializer.data:
             dict(i)
-            self.get_socket(i['_id'], 0)
-            for j in data['data']['features'][0]['geometry']['coordinates']:
-                if (round(i['lat'], 7) == j[1]):
-                    self.get_socket(i['_id'], 1)
+            for j in data:
+                if (round(i['lat'], 6) == j[1]):
+                    self.get_socket(i['_id'], 0)
                     break
+        return Response("SUCCESS")
+
+    # def post(self, request):
+    #     data = request.data
+    #     print(data)
+    #     queryset = Light.objects.all()
+    #     serializer = lightSerializer(queryset, many=True)
+    #     for i in serializer.data:
+    #         dict(i)
+    #         #self.get_socket(i['_id'], 0)
+    #         for j in data:
+    #             foo = j
+    #             print(j)
+    #             break
+    #             if(isinstance(foo, str)):
+    #                 pass
+    #         break
+
+    #         #     if (round(i['lat'], 6) == j[1]):
+    #         #         self.get_socket(i['_id'], 0)
+    #         #         break
         return Response("SUCCESS")
 
 

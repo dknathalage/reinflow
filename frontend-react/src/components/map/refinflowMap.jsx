@@ -10,7 +10,7 @@ import { openNotificationWithIcon } from '../notification';
 import MarkerPoint from './components/marker-points';
 import { API_URL } from '../../authentication/urls';
 import { useSelector } from 'react-redux';
-import { set_coords } from '../../authentication/management';
+import { set_coords, update_django } from '../../authentication/management';
 function Reinflowmap() {
 	const user = useSelector((state) => state.user);
 	const [ segments, setsegments ] = useState([]);
@@ -37,7 +37,7 @@ function Reinflowmap() {
 		setInterval(async () => {
 			try {
 				const resp = await axios.get(`${API_URL}/api/l3/realtime/lightbuffer`);
-				const icons = resp.data.data.map((val) => (
+				const icons = await resp.data.data.map((val) => (
 					<TrafficLightMarker key={val._id} lat={val.lat} lon={val.lon} color={val.status} />
 				));
 				settrafficLights(icons);
@@ -56,7 +56,7 @@ function Reinflowmap() {
 		console.log('data', data);
 		const features = await data.features[0];
 		const coords = await features.geometry.coordinates;
-		const colorchange = await axios.post('http://localhost:8000/light/', { data })
+		const colorchange = await axios.post('http://localhost:8000/light', { data })
 		console.log(colorchange)
 		console.log('coords', await coords);
 		let coordArr = new Array();
@@ -65,6 +65,7 @@ function Reinflowmap() {
 			console.log(tempArr[1], tempArr[0]);
 			coordArr.push([tempArr[1], tempArr[0]]);
 		});
+		const django_send = await update_django(coords);
 		const backend_resp = await set_coords(user.username, start, end, coords);
 		if (backend_resp.status === true) {
 			setTimeout(async () => {
@@ -106,6 +107,8 @@ function Reinflowmap() {
 		if (pointA !== null || pointB !== null) {
 			openNotificationWithIcon('success', 'Platform Manager', 'Finding the best possible route for you!');
 			fetch(pointA, pointB);
+			setpointA(null);
+			setpointB(null);
 		} else {
 			openNotificationWithIcon('error', 'Platform Manager', 'Please select a point first.');
 		}

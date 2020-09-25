@@ -103,22 +103,22 @@ async function changeToRedAll() {
 }
 
 // //route update -> /all
-// router.post('/lights/all/:status', (req, res) => {
-//     const status = req.params.status;
-//     if (!status) {
-//         res.status(404).send({
-//             status: false,
-//             message: "No status Found."
-//         })
-//     } else {
-//         if (status === '1' || status === 1) { //green handler
-//             changeToGreenAll();
-//         } else if (status === '0' || status === 0) {
-//             changeToRedAll();
-//         }
+router.get('/lights/all/:status', (req, res) => {
+    const status = req.params.status;
+    if (!status) {
+        res.status(404).send({
+            status: false,
+            message: "No status Found."
+        })
+    } else {
+        if (status === '1' || status === 1) { //green handler
+            changeToGreenAll();
+        } else if (status === '0' || status === 0) {
+            changeToRedAll();
+        }
 
-//     }
-// })
+    }
+})
 
 //get all traffic light data
 router.post('/lights/all/', (req, res) => {
