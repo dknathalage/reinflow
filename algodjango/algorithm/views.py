@@ -30,7 +30,7 @@ class LightView(APIView):
         return Response(serializer.data)
 
     def get_socket(self, id, colour):
-        r = requests.get(f'https://localhost:5000/lights/{id}/{colour}')
+        r = requests.get(f'https://localhost:5001/lights/{id}/{colour}')
         return Response("LIGHT UPDATED")
 
     def post(self, request, data):
