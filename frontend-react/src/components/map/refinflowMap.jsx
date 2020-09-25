@@ -9,10 +9,14 @@ import { Button, Descriptions } from 'antd';
 import { openNotificationWithIcon } from '../notification';
 import MarkerPoint from './components/marker-points';
 import { API_URL } from '../../authentication/urls';
+import { useSelector } from 'react-redux';
+import { set_coords } from '../../authentication/management';
 function Reinflowmap() {
-	const [segments, setsegments] = useState([]);
-	const [segmentData, setsegmentData] = useState(null);
-	const [markers, setmarkers] = useState([]);
+	const user = useSelector((state) => state.user);
+	const [ segments, setsegments ] = useState([]);
+	const [ segmentData, setsegmentData ] = useState(null);
+	const [ markers, setmarkers ] = useState([]);
+
 
 	const [pointA, setpointA] = useState(null);
 	const [pointB, setpointB] = useState(null);
@@ -60,11 +64,20 @@ function Reinflowmap() {
 			console.log(tempArr[1], tempArr[0]);
 			coordArr.push([tempArr[1], tempArr[0]]);
 		});
-		setTimeout(async () => {
-			setsegments(coordArr);
-			setsegmentData(true);
-			console.log('inverted', coordArr);
-		}, 3000);
+		const backend_resp = await set_coords(user.username, start, end, coords);
+		if (backend_resp.status === true) {
+			setTimeout(async () => {
+				setsegments(coordArr);
+				setsegmentData(true);
+				console.log('inverted', coordArr);
+			}, 3000);
+		} else {
+			openNotificationWithIcon(
+				'error',
+				'Platfrom Manager',
+				`Something happened, this is related to backend coords updatating ${backend_resp.mesage}`
+			);
+		}
 	};
 
 	const handleOnClick = async (e) => {
