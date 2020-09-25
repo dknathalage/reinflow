@@ -39,7 +39,7 @@ class LightView(APIView):
         for i in serializer.data:
             dict(i)
             self.get_socket(i['_id'], 0)
-            for j in data:
+            for j in data['routing'][0]['coordinates']:
                 if (i['lat'] == j[1] and i['lon'] == j[0]):
                     self.get_socket(i['_id'], 1)
                     break
