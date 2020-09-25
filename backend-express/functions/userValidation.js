@@ -4,7 +4,8 @@ const registerValidation = (data) => {
     const userValidation = Joi.object({
         name: Joi.string().max(32).required(),
         email: Joi.string().required().email(),
-        pass: Joi.string().min(4).required()
+        pass: Joi.string().min(4).required(),
+        al: Joi.number()
     })
     return userValidation.validate(data)
 }

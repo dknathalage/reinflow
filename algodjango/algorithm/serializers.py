@@ -1,8 +1,13 @@
 from rest_framework import serializers
-from .model import RouteCoordinates
+from . models import Light, Route
 
 
-class RouteDataSerializer(serializers.ModelSerializer):
+class lightSerializer(serializers.ModelSerializer):
     class Meta:
-        model= RouteCoordinates
-        fields = ("point1_longitude", "point1_latitude", "point2_longitude", "point2_latitude")
+        model=Light
+        fields = '__all__'
+
+class routeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Route
+        fields = '__all__'

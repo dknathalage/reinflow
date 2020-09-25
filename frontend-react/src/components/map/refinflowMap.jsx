@@ -25,7 +25,6 @@ function Reinflowmap() {
   const [segments, setsegments] = useState([]);
   const [segmentData, setsegmentData] = useState(null);
   const [markers, setmarkers] = useState([]);
-
   const [pointA, setpointA] = useState(null);
   const [pointB, setpointB] = useState(null);
 
