@@ -30,22 +30,24 @@ class LightView(APIView):
         return Response(serializer.data)
 
     def get_socket(self, id, colour):
-        r = requests.get(f'https://localhost:5001/lights/{id}/{colour}')
-        return Response("LIGHT UPDATED")
+        r = requests.get(f'http://localhost:5001/devicedata/lights/{id}/{colour}')
+        print(r.text)
+        #return Response("LIGHT UPDATED")
 
-    def post(self, request, data):
+    def post(self, request):
+        data = request.data
         queryset = Light.objects.all()
         serializer = lightSerializer(queryset, many=True)
         for i in serializer.data:
             dict(i)
             self.get_socket(i['_id'], 0)
-            for j in data['routing'][0]['coordinates']:
-                if (i['lat'] == j[1] and i['lon'] == j[0]):
+            for j in data['data']['features'][0]['geometry']['coordinates']:
+                if (round(i['lat'], 7) == j[1]):
                     self.get_socket(i['_id'], 1)
                     break
         return Response("SUCCESS")
 
-        
+
 class RouteView():
     queryset = Route.objects.all()
     serializer = routeSerializer
@@ -56,7 +58,7 @@ class RouteView():
             serializer.save()
             print(serializer.data)
 
-#https://reinflow-backend.vercel.app/routedata/requests
+# https://reinflow-backend.vercel.app/routedata/requests
 
 # import osmnx as ox
 # import matplotlib.pyplot as plt
@@ -78,7 +80,6 @@ class RouteView():
 #     for i in nlist:
 #         # Do some post request
 
-
-    # url = 'http://api.example.com/...' 
+    # url = 'http://api.example.com/...'
     # params = {'id': id, 'signal': signal}
     # r = requests.get(url, params=params)

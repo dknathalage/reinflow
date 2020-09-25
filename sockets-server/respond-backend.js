@@ -52,6 +52,7 @@ function changeToGreen(arrayId) {
 
 // setting light status manually
 router.get('/lights/:id/:status', (req, res) => {
+    console.log(req.params)
     const {
         id,
         status
@@ -60,8 +61,9 @@ router.get('/lights/:id/:status', (req, res) => {
         message: "No traffic light items to update"
     })
     for (var i = 0; i < lightData.length; i++) {
-        if (id == lightData[i]._id) {
+        if (id === lightData[i]._id) {
             status == 0 ? changeToRed(i) : changeToGreen(i)
+            //console.log('changed')
             return res.json({
                 message: "change light signal sent"
             })
@@ -100,23 +102,23 @@ async function changeToRedAll() {
     }, 5000);
 }
 
-//route update -> /all
-router.post('/lights/all/:status', (req, res) => {
-    const status = req.params.status;
-    if (!status) {
-        res.status(404).send({
-            status: false,
-            message: "No status Found."
-        })
-    } else {
-        if (status === '1' || status === 1) { //green handler
-            changeToGreenAll();
-        } else if (status === '0' || status === 0) {
-            changeToRedAll();
-        }
+// //route update -> /all
+// router.post('/lights/all/:status', (req, res) => {
+//     const status = req.params.status;
+//     if (!status) {
+//         res.status(404).send({
+//             status: false,
+//             message: "No status Found."
+//         })
+//     } else {
+//         if (status === '1' || status === 1) { //green handler
+//             changeToGreenAll();
+//         } else if (status === '0' || status === 0) {
+//             changeToRedAll();
+//         }
 
-    }
-})
+//     }
+// })
 
 //get all traffic light data
 router.post('/lights/all/', (req, res) => {

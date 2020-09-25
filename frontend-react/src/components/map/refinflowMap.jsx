@@ -56,7 +56,8 @@ function Reinflowmap() {
 		console.log('data', data);
 		const features = await data.features[0];
 		const coords = await features.geometry.coordinates;
-		axios.post('http://localhost:8000/', { data: data })
+		const colorchange = await axios.post('http://localhost:8000/light/', { data })
+		console.log(colorchange)
 		console.log('coords', await coords);
 		let coordArr = new Array();
 		coords.forEach((element) => {
