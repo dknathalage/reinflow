@@ -30,20 +30,25 @@ class LightView(APIView):
         return Response(serializer.data)
 
     def get_socket(self, id, colour):
-        r = requests.get(f'https://localhost:5000/lights/{id}/{colour}')
+        r = requests.get(f'http://localhost:5001/lights/{id}/{colour}')
         return Response("LIGHT UPDATED")
 
-    def post(self, request, data):
-        queryset = Light.objects.all()
-        serializer = lightSerializer(queryset, many=True)
-        for i in serializer.data:
-            dict(i)
-            self.get_socket(i['_id'], 0)
-            for j in data['routing'][0]['coordinates']:
-                if (i['lat'] == j[1] and i['lon'] == j[0]):
-                    self.get_socket(i['_id'], 1)
-                    break
-        return Response("SUCCESS")
+    def reset_socket(self):
+        r = requests.get(f'http://localhost:5001/lights/all/1')
+        return Response("LIGHTS UPDATED")
+
+    def post(self, request):
+            data = request.data
+            queryset = Light.objects.all()
+            serializer = lightSerializer(queryset, many=True)
+            self.reset_socket()
+            for i in serializer.data:
+                dict(i)
+                for j in data:
+                    if (round(i['lat'], 6) == j[1]):
+                        self.get_socket(i['_id'], 0)
+                        break
+            return Response("SUCCESS")
 
         
 class RouteView():
@@ -55,30 +60,3 @@ class RouteView():
         if(serializer.is_valid()):
             serializer.save()
             print(serializer.data)
-
-#https://reinflow-backend.vercel.app/routedata/requests
-
-# import osmnx as ox
-# import matplotlib.pyplot as plt
-# from shapely.geometry import Polygon
-
-# poly_map = Polygon([[144.951495, -37.813152],
-# [144.955083, -37.821145],
-# [144.974903, -37.815366],
-# [144.971369, -37.807383]])
-
-# graph = ox.graph_from_polygon(poly_map, network_type='drive')
-# nodes, edges = ox.graph_to_gdfs(graph)
-
-# def change_light(input_list):
-#     # Manipulate input list
-
-#     node_list = list(nodes[nodes['x'].isin(input_list)].index)
-
-#     for i in nlist:
-#         # Do some post request
-
-
-    # url = 'http://api.example.com/...' 
-    # params = {'id': id, 'signal': signal}
-    # r = requests.get(url, params=params)
