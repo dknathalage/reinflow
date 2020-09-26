@@ -40,12 +40,12 @@ router.post('/register', async (req, res) => {
 
     const salt = await bcrypt.genSalt(10)
     const hashPassword = await bcrypt.hash(req.body.pass, salt)
-
+    const accesslvl = req.body.al === undefined ? 3 : parseInt(req.body.al);
     const user = new User({
         name: req.body.name,
         email: req.body.email,
         pass: hashPassword,
-        accessLevel: 3
+        accessLevel: accesslvl
     })
     try {
         const savedUser = await user.save()
@@ -107,4 +107,21 @@ router.post('/login', async (req, res) => {
     })
 })
 
+/**
+ * @api {get} /tasks/:id Remove a user
+ * @apiGroup Tasks
+ * @apiParam {id} id Task id
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 204 No Content
+ * @apiErrorExample {json} Delete error
+ *    HTTP/1.1 500 Internal Server Error
+ */
+
+router.get('/remove/:id', async (req, res) => {
+    const removed = await User.findByIdAndDelete(req.params.id);
+    res.send(removed);
+})
+
+
 module.exports = router;
+

@@ -22,7 +22,7 @@ import { List, Avatar } from 'antd';
 import { ArrowDownOutlined, ArrowUpOutlined, CaretRightOutlined } from '@ant-design/icons';
 import { useSelector } from 'react-redux';
 import { openNotificationWithIcon } from '../../../notification';
-import { update_username } from '../../../../authentication/management';
+import { update_password, update_username } from '../../../../authentication/management';
 
 const { Header, Content } = Layout;
 const { Panel } = Collapse;
@@ -91,6 +91,16 @@ function UserDashboard() {
 			openNotificationWithIcon('error', 'Platform Manager', `Something happened! ${resp.message}`);
 		}
 	};
+
+	const handle_passwordchange = async(values) => {
+		const new_password = values.password.password;
+		const resp = await update_password(new_password);
+		if(resp.status === true) {
+			openNotificationWithIcon('success', "Platform Manager", "Password updated!")
+		} else {
+			openNotificationWithIcon(`error', "Platform Manager", "Something happened! ${resp.message}`)
+		}
+	}
 
 	return (
 		<React.Fragment>
@@ -277,11 +287,11 @@ function UserDashboard() {
 											<Form
 												{...layout}
 												name="nest-messages"
-												onFinish={onFinish}
+												onFinish={handle_passwordchange}
 												validateMessages={validateMessages}
 											>
 												<Form.Item
-													name={[ 'user', 'name' ]}
+													name={[ 'password', 'name' ]}
 													label="New Password"
 													rules={[ { required: true } ]}
 												>
@@ -289,7 +299,7 @@ function UserDashboard() {
 												</Form.Item>
 
 												<Form.Item
-													name={[ 'user', 'password' ]}
+													name={[ 'password', 'password' ]}
 													label="Old Password"
 													rules={[ { required: true } ]}
 												>

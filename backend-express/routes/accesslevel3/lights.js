@@ -3,7 +3,7 @@ const Ligth = require('../../model/light')
 const Route = require('../../model/routing');
 
 
-const routesArr = new Array();
+let routesArr = new Array();
 
 
 router.get('/',
@@ -23,8 +23,30 @@ router.get('/',
         }
     }
 )
-
-router.get('/routedata/:token/:username', async (req, res) => {
+/**
+ * @api {get} /routedata/:token/:username Update route data - Backend
+ * @apiDescription This endpoint will update the backend with the with the latest coordinates from the frontend for the lights to be updated to green
+ * @apiGroup Level 3 
+ * @apiParam (Parameter) {String} token User unique JWT token
+ * @apiParam (Parameter) {String} username User username
+ * @apiParam (Body) {String} starting_point Staring point coordinates
+ * @apiParam (Body) {String} ending_point Ending point coordinates
+ * @apiParam (Body) {String} coords Coordinate collection of the path route visualized on the map.
+ * @apiSuccess {Boolean} status Statius of the request true | false.
+ * @apiSuccess {String} message Response message of the request.
+ * @apiSuccessExample {json} Success-Response:
+                {  "status": true, 
+                   "message": "Action logged" 
+                }
+    @apiError NoStartingOrEndingPoints The <code>starting</code> and <code>ending</code> points are not available. 
+    @apiError ErrorOnSaving An error occured when saving to mongoodb. 
+    @apiErrorExample {json} Error-Response:
+                 {
+                     status: false,
+                     "message": ErrorOnSaving
+                 }
+ * */  
+router.post('/routedata/:token/:username', async (req, res) => {
     try {
         const token = req.params.token;
         const username = req.params.username;
@@ -33,6 +55,7 @@ router.get('/routedata/:token/:username', async (req, res) => {
             end_point,
             coords
         } = req.body;
+        console.log(req.body);
         if (!start_point || !end_point) {
             res.status(404).json({
                 status: false,
@@ -72,11 +95,14 @@ router.get('/routedata/:token/:username', async (req, res) => {
             const savedRoute = await route.save();
             res.status(200).json({
                 status: true,
-                message: "Action logged."
+                message: "Action logged.",
+                savedRoute
             })
+            console.log(routesArr)
 
         }
     } catch (error) {
+        console.log(error)
         res.status(404).json({
             status: false,
             message: `Error on Saving`,
