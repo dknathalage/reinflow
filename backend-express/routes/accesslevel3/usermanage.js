@@ -4,6 +4,25 @@ const verifyToken = require('../../functions/verifyToken');
 const users = require('../../model/user');
 const bcrypt = require('bcryptjs')
 
+
+
+/** 
+* @api { post } /USER MANAGEMENT
+* @apiGroup Auth
+* @apiSuccess {String} title Auth title
+* @apiSuccess {Boolean} done=false Auth is done?
+* @apiSuccess {Date} updated_at Update date
+* @apiSuccess {Date} created_at Register date
+* @apiSuccessExample { json } Success - Response:
+*{
+*  "id": "5f4dfad37b549140a0513c63",
+*  }
+*}
+* @apiErrorExample { json } Error - Response:
+* {
+*     "Error 400: Bad Request"
+* } 
+*/
 router.post('/password/:newpassword/:token', async (req, res) => {
     const new_pass = req.params.newpassword;
     const token = req.params.token;

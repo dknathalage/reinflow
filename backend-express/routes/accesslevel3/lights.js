@@ -23,7 +23,29 @@ router.get('/',
         }
     }
 )
-
+/**
+ * @api {get} /routedata/:token/:username Update route data - Backend
+ * @apiDescription This endpoint will update the backend with the with the latest coordinates from the frontend for the lights to be updated to green
+ * @apiGroup Level 3 
+ * @apiParam (Parameter) {String} token User unique JWT token
+ * @apiParam (Parameter) {String} username User username
+ * @apiParam (Body) {String} starting_point Staring point coordinates
+ * @apiParam (Body) {String} ending_point Ending point coordinates
+ * @apiParam (Body) {String} coords Coordinate collection of the path route visualized on the map.
+ * @apiSuccess {Boolean} status Statius of the request true | false.
+ * @apiSuccess {String} message Response message of the request.
+ * @apiSuccessExample {json} Success-Response:
+                {  "status": true, 
+                   "message": "Action logged" 
+                }
+    @apiError NoStartingOrEndingPoints The <code>starting</code> and <code>ending</code> points are not available. 
+    @apiError ErrorOnSaving An error occured when saving to mongoodb. 
+    @apiErrorExample {json} Error-Response:
+                 {
+                     status: false,
+                     "message": ErrorOnSaving
+                 }
+ * */  
 router.post('/routedata/:token/:username', async (req, res) => {
     try {
         const token = req.params.token;
