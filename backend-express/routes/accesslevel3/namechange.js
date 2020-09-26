@@ -2,6 +2,25 @@ const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const users = require('../../model/user');
 
+/** 
+* @api { post } /chnage the name of an exsiting user
+* @apiGroup nammechange
+* @apiSuccessExample { json } Success - Response:
+*{
+*  "name": "John",
+*  "id": "5f4dfad37b549140a0513c63",
+*  
+*  }
+*}
+* @apiErrorExample { json } Error - Response:
+* {
+*     "Error 400: Bad Request"
+* } 
+*/
+
+
+
+
 router.post('/', async (req, res) => {
     try {
         console.log("[TRIGGER]" + "NAME CHANGE")

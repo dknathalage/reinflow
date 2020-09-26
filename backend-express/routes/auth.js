@@ -107,6 +107,15 @@ router.post('/login', async (req, res) => {
     })
 })
 
+/**
+ * @api {get} /tasks/:id Remove a user
+ * @apiGroup Tasks
+ * @apiParam {id} id Task id
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 204 No Content
+ * @apiErrorExample {json} Delete error
+ *    HTTP/1.1 500 Internal Server Error
+ */
 
 router.get('/remove/:id', async (req, res) => {
     const removed = await User.findByIdAndDelete(req.params.id);
