@@ -19,6 +19,7 @@
     "react-dom": "^16.13.1",
     "react-leaflet": "^2.7.0",
     "react-leaflet-ant-path": "^1.1.0",
+    "react-leaflet-sidetabs": "^1.0.1",
     "react-redux": "^7.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
