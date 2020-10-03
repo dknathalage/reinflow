@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 
 module.exports = function (req, res, next, level) {
     const token = req.header('Authorization');
+    console.log(token)
     if (!token) {
         console.log("rejected-invalid-token")
         return res.status(401).json({ "route-access": false, "message": "invalid token" })

@@ -5,6 +5,23 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv').config()
 
+
+/** 
+* @api { post } /register Register new user to database
+* @apiGroup Auth
+* @apiSuccessExample { json } Success - Response:
+*{
+*  "name": "John",
+*  "email": "john_doe@email.com",
+*  "pass": "pass",
+*  "accessLevel": "3",
+*  }
+*}
+* @apiErrorExample { json } Error - Response:
+* {
+*     "Error 400: Bad Request"
+* } 
+*/
 router.post('/register', async (req, res) => {
     console.log(req.body);
     const {
@@ -23,12 +40,12 @@ router.post('/register', async (req, res) => {
 
     const salt = await bcrypt.genSalt(10)
     const hashPassword = await bcrypt.hash(req.body.pass, salt)
-
+    const accesslvl = req.body.al === undefined ? 3 : parseInt(req.body.al);
     const user = new User({
         name: req.body.name,
         email: req.body.email,
         pass: hashPassword,
-        accessLevel: 3
+        accessLevel: accesslvl
     })
     try {
         const savedUser = await user.save()
@@ -43,6 +60,23 @@ router.post('/register', async (req, res) => {
     }
 })
 
+
+/** 
+* @api { post } /login Return Sensor information for a specific sensor ID
+* @apiGroup Auth
+* @apiSuccessExample { json } Success - Response:
+*{
+*  "token": "Authorisation Token",
+*  "username": "john",
+*  "access_level": "3",
+*  "id": "5f4dfad37b549140a0513c63",
+*  }
+*}
+* @apiErrorExample { json } Error - Response:
+* {
+*     "Error 400: Bad Request"
+* } 
+*/
 router.post('/login', async (req, res) => {
     const {
         error
@@ -73,4 +107,21 @@ router.post('/login', async (req, res) => {
     })
 })
 
+/**
+ * @api {get} /tasks/:id Remove a user
+ * @apiGroup Tasks
+ * @apiParam {id} id Task id
+ * @apiSuccessExample {json} Success
+ *    HTTP/1.1 204 No Content
+ * @apiErrorExample {json} Delete error
+ *    HTTP/1.1 500 Internal Server Error
+ */
+
+router.get('/remove/:id', async (req, res) => {
+    const removed = await User.findByIdAndDelete(req.params.id);
+    res.send(removed);
+})
+
+
 module.exports = router;
+
